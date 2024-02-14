@@ -9,12 +9,7 @@ const productRoutes = require("./routes/product");
 require("dotenv-flow").config();
 
 // parse request of content-type JSON
-// app.use(bodyParser.json());
-
-// routes
-app.get("/api/welcome", (req, res) => {
-  res.status(200).send({ message: "Welcome to the MEN RESTFUL API" });
-});
+app.use(bodyParser.json());
 
 mongoose
   .connect(process.env.DBHOST, {
@@ -26,6 +21,11 @@ mongoose
 mongoose.connection.once("open", () =>
   console.log("Connected succesfuly to MongoDB")
 );
+
+// routes
+app.get("/api/welcome", (req, res) => {
+  res.status(200).send({ message: "Welcome to the MEN RESTFUL API" });
+});
 
 // post, put, delete -> CRUD
 app.use("/api/products", productRoutes);
