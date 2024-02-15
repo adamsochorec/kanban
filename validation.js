@@ -12,7 +12,7 @@ const registrationValidation = (data) => {
 };
 
 // validating login
-const loginnValidation = (data) => {
+const loginValidation = (data) => {
   const schema = Joi.object({
     email: Joi.string().min(6).max(255).required(),
     password: Joi.string().min(6).max(255).required(),
@@ -22,4 +22,4 @@ const loginnValidation = (data) => {
 };
 // logic to verify our token (JWT)
 
-module.exports = { registrationValidation, loginnValidation };
+module.exports = { registrationValidation, loginValidation };

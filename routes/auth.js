@@ -1,25 +1,25 @@
 const router = require("express").Router();
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
-const { registrationValidation, loginnValidation } = require("../validation");
+const { registerValidation, loginValidation } = require("../validation");
 const jwt = require("jsonwebtoken");
 
 // registration
 router.post("/register", async (req, res) => {
   // validate the user input (name, email, password)
-  const { error } = registrationValidation(req.body);
+  const { error } = registerValidation(req.body);
   if (error) {
     return res.status(400).json({ error: error.details[0].message });
   }
 
-  // check if the email is already registeted
+  // check if the email is already registered
   const emailExist = await User.findOne({ email: req.body.email });
 
   if (emailExist) {
     return res.status(400).json({ error: "Email already exists" });
   }
 
-  // has the password
+  // hash the password
   const salt = await bcrypt.genSalt(10);
   const password = await bcrypt.hash(req.body.password, salt);
   const userObject = new User({
@@ -34,11 +34,6 @@ router.post("/register", async (req, res) => {
   } catch (error) {
     res.status(400).json({ error });
   }
-});
-
-// registration
-router.post("/register", async (req, res) => {
-  // ... (no changes here)
 });
 
 // login
@@ -77,13 +72,13 @@ router.post("/login", async (req, res) => {
     },
 
     // token secret
-    process.env.TOKEN_SECRET,
+    process.env.TOKEN_SECRET || "your_default_secret",
     {
-      expiresIn: process.env.JWR_EXPIRES_IN,
+      expiresIn: process.env.JWR_EXPIRES_IN || "1h",
     }
   );
 
-  // attach aut token to header
+  // attach auth token to header
   res.header("auth-token", token).json({
     error: null,
     data: { token },
