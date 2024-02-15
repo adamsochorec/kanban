@@ -5,6 +5,7 @@ const app = express();
 
 // import product routes
 const productRoutes = require("./routes/product");
+const authRoutes = require("./routes/auth");
 
 require("dotenv-flow").config();
 
@@ -29,6 +30,9 @@ app.get("/api/welcome", (req, res) => {
 
 // post, put, delete -> CRUD
 app.use("/api/products", productRoutes);
+app.use("/api/user", authRoutes);
+
+// api/user
 
 const PORT = process.env.PORT || 4000;
 
