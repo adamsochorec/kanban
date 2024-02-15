@@ -2,6 +2,15 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const app = express();
+const { verifyToken } = require("./validation");
+
+// swagger deps
+const swaggerUi = require("swagger-ui-express");
+const yaml = require("yamljs");
+
+// setup swagger
+const swaggerDefinition = yaml.load("./swagger.yaml");
+app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerDefinition));
 
 // import product routes
 const productRoutes = require("./routes/product");
@@ -29,7 +38,7 @@ app.get("/api/welcome", (req, res) => {
 });
 
 // post, put, delete -> CRUD
-app.use("/api/products", productRoutes);
+app.use("/api/products", verifyToken, productRoutes);
 app.use("/api/user", authRoutes);
 
 // api/user
