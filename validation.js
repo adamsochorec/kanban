@@ -1,7 +1,7 @@
 const Joi = require("joi");
 const jwt = require("jsonwebtoken");
 
-// validating registration
+// Validation for user registration data
 const registerValidation = (data) => {
   const schema = Joi.object({
     name: Joi.string().min(6).max(255).required(),
@@ -12,7 +12,7 @@ const registerValidation = (data) => {
   return schema.validate(data);
 };
 
-// validating login
+// Validation for user login data
 const loginValidation = (data) => {
   const schema = Joi.object({
     email: Joi.string().min(6).max(255).required(),
@@ -21,11 +21,13 @@ const loginValidation = (data) => {
 
   return schema.validate(data);
 };
-// logic to verify our token (JWT)
+
+// Middleware to verify JWT token
 const verifyToken = (req, res, next) => {
   const token = req.header("auth-token");
   if (!token) return res.status(401).json({ error: "Access Denied" });
   try {
+    // Verify the token using the secret key
     const verified = jwt.verify(token, process.env.TOKEN_SECRET);
     req.user = verified;
     next();

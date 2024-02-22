@@ -1,13 +1,16 @@
+// Import necessary modules
 const router = require("express").Router();
-const product = require("../models/product");
+const product = require("../models/product"); // Assuming there's a product model
 const { verifyToken } = require("../validation");
 
 // CRUD operations
 
-// Create product -- post
+// Create product - POST
 router.post("/", (req, res) => {
+  // Extract data from the request body
   const data = req.body;
 
+  // Insert new product data into the database
   product
     .insertMany(data)
     .then((data) => {
@@ -18,8 +21,9 @@ router.post("/", (req, res) => {
     });
 });
 
-// Read all products -- get
+// Read all products - GET
 router.get("/", verifyToken, (req, res) => {
+  // Retrieve all products from the database
   product
     .find()
     .then((data) => {
@@ -30,8 +34,9 @@ router.get("/", verifyToken, (req, res) => {
     });
 });
 
-// Read all products in stock - get
+// Read all products in stock - GET
 router.get("/instock", (req, res) => {
+  // Retrieve products that are currently in stock
   product
     .find({ inStock: true })
     .then((data) => {
@@ -42,8 +47,9 @@ router.get("/instock", (req, res) => {
     });
 });
 
-// Read specific product - get
+// Read specific product by ID - GET
 router.get("/:id", (req, res) => {
+  // Retrieve a specific product by its ID
   product
     .findById(req.params.id)
     .then((data) => {
@@ -54,10 +60,12 @@ router.get("/:id", (req, res) => {
     });
 });
 
-// Update specific product - put
+// Update specific product by ID - PUT
 router.put("/:id", (req, res) => {
+  // Extract product ID from the request parameters
   const id = req.params.id;
 
+  // Update the product with the provided ID using the request body data
   product
     .findByIdAndUpdate(id, req.body)
     .then((data) => {
@@ -77,10 +85,12 @@ router.put("/:id", (req, res) => {
     });
 });
 
-// Delete specific product - delete
+// Delete specific product by ID - DELETE
 router.delete("/:id", (req, res) => {
+  // Extract product ID from the request parameters
   const id = req.params.id;
 
+  // Delete the product with the provided ID
   product
     .findByIdAndDelete(id)
     .then((data) => {
@@ -100,4 +110,5 @@ router.delete("/:id", (req, res) => {
     });
 });
 
+// Export the router for use in other files
 module.exports = router;

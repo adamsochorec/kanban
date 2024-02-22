@@ -4,23 +4,25 @@ const bodyParser = require("body-parser");
 const app = express();
 const { verifyToken } = require("./validation");
 
-// swagger deps
+// Swagger dependencies
 const swaggerUi = require("swagger-ui-express");
 const yaml = require("yamljs");
 
-// setup swagger
+// Setup Swagger documentation
 const swaggerDefinition = yaml.load("./swagger.yaml");
 app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerDefinition));
 
-// import product routes
+// Import product and authentication routes
 const productRoutes = require("./routes/product");
 const authRoutes = require("./routes/auth");
 
+// Load environment variables
 require("dotenv-flow").config();
 
-// parse request of content-type JSON
+// Parse requests of content-type JSON
 app.use(bodyParser.json());
 
+// Connect to MongoDB
 mongoose
   .connect(process.env.DBHOST, {
     useUnifiedTopology: true,
@@ -29,25 +31,27 @@ mongoose
   .catch((error) => console.log("Error connecting to MongoDB:" + error));
 
 mongoose.connection.once("open", () =>
-  console.log("Connected succesfuly to MongoDB")
+  console.log("Connected successfully to MongoDB")
 );
 
-// routes
+// Welcome route
 app.get("/api/welcome", (req, res) => {
   res.status(200).send({ message: "Welcome to the MEN RESTFUL API" });
 });
 
-// post, put, delete -> CRUD
+// CRUD operations for products
 app.use("/api/products", productRoutes);
+
+// Authentication routes
 app.use("/api/user", authRoutes);
 
-// api/user
-
+// Define the port number
 const PORT = process.env.PORT || 4000;
 
-// start up the server
+// Start the server
 app.listen(PORT, function () {
-  console.log("Server is running on port: ", +PORT);
+  console.log("Server is running on port: " + PORT);
 });
 
+// Export the app for testing or other uses
 module.exports = app;
