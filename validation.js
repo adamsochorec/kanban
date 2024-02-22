@@ -21,7 +21,6 @@ const loginValidation = (data) => {
 
   return schema.validate(data);
 };
-
 // Middleware to verify JWT token
 const verifyToken = (req, res, next) => {
   const token = req.header("auth-token");

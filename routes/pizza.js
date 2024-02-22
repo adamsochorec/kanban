@@ -1,17 +1,17 @@
 // Import necessary modules
 const router = require("express").Router();
-const product = require("../models/product"); // Assuming there's a product model
+const pizza = require("../models/pizza"); // Assuming there's a pizza model
 const { verifyToken } = require("../validation");
 
 // CRUD operations
 
-// Create product - POST
+// Create pizza - POST
 router.post("/", (req, res) => {
   // Extract data from the request body
   const data = req.body;
 
-  // Insert new product data into the database
-  product
+  // Insert new pizza data into the database
+  pizza
     .insertMany(data)
     .then((data) => {
       res.send(data);
@@ -21,10 +21,10 @@ router.post("/", (req, res) => {
     });
 });
 
-// Read all products - GET
+// Read all pizzas - GET
 router.get("/", verifyToken, (req, res) => {
-  // Retrieve all products from the database
-  product
+  // Retrieve all pizzas from the database
+  pizza
     .find()
     .then((data) => {
       res.send(data);
@@ -34,11 +34,11 @@ router.get("/", verifyToken, (req, res) => {
     });
 });
 
-// Read all products in stock - GET
-router.get("/instock", (req, res) => {
-  // Retrieve products that are currently in stock
-  product
-    .find({ inStock: true })
+// Read all pizzas in stock - GET
+router.get("/available", (req, res) => {
+  // Retrieve pizzas that are currently in stock
+  pizza
+    .find({ available: true })
     .then((data) => {
       res.send(data);
     })
@@ -47,10 +47,10 @@ router.get("/instock", (req, res) => {
     });
 });
 
-// Read specific product by ID - GET
+// Read specific pizza by ID - GET
 router.get("/:id", (req, res) => {
-  // Retrieve a specific product by its ID
-  product
+  // Retrieve a specific pizza by its ID
+  pizza
     .findById(req.params.id)
     .then((data) => {
       res.send(data);
@@ -60,53 +60,53 @@ router.get("/:id", (req, res) => {
     });
 });
 
-// Update specific product by ID - PUT
+// Update specific pizza by ID - PUT
 router.put("/:id", (req, res) => {
-  // Extract product ID from the request parameters
+  // Extract pizza ID from the request parameters
   const id = req.params.id;
 
-  // Update the product with the provided ID using the request body data
-  product
+  // Update the pizza with the provided ID using the request body data
+  pizza
     .findByIdAndUpdate(id, req.body)
     .then((data) => {
       if (!data) {
         res.status(404).send({
           message:
-            "Cannot update product with id=" +
+            "Cannot update pizza with id=" +
             id +
-            ". Maybe product was not found!",
+            ". Maybe pizza was not found!",
         });
       } else {
-        res.send({ message: "Product was successfully updated." });
+        res.send({ message: "Pizza was successfully updated." });
       }
     })
     .catch((err) => {
-      res.status(500).send({ message: "Error updating product with id=" + id });
+      res.status(500).send({ message: "Error updating pizza with id=" + id });
     });
 });
 
-// Delete specific product by ID - DELETE
+// Delete specific pizza by ID - DELETE
 router.delete("/:id", (req, res) => {
-  // Extract product ID from the request parameters
+  // Extract pizza ID from the request parameters
   const id = req.params.id;
 
-  // Delete the product with the provided ID
-  product
+  // Delete the pizza with the provided ID
+  pizza
     .findByIdAndDelete(id)
     .then((data) => {
       if (!data) {
         res.status(404).send({
           message:
-            "Cannot delete product with id=" +
+            "Cannot delete pizza with id=" +
             id +
-            ". Maybe product was not found!",
+            ". Maybe pizza was not found!",
         });
       } else {
-        res.send({ message: "Product was successfully deleted." });
+        res.send({ message: "Pizza was successfully deleted." });
       }
     })
     .catch((err) => {
-      res.status(500).send({ message: "Error deleting product with id=" + id });
+      res.status(500).send({ message: "Error deleting pizza with id=" + id });
     });
 });
 

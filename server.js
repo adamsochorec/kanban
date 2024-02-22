@@ -12,8 +12,8 @@ const yaml = require("yamljs");
 const swaggerDefinition = yaml.load("./swagger.yaml");
 app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerDefinition));
 
-// Import product and authentication routes
-const productRoutes = require("./routes/product");
+// Import pizza and authentication routes
+const pizzaRoutes = require("./routes/pizza");
 const authRoutes = require("./routes/auth");
 
 // Load environment variables
@@ -39,8 +39,8 @@ app.get("/api/welcome", (req, res) => {
   res.status(200).send({ message: "Welcome to the MEN RESTFUL API" });
 });
 
-// CRUD operations for products
-app.use("/api/products", productRoutes);
+// CRUD operations for pizzas
+app.use("/api/pizzas", pizzaRoutes);
 
 // Authentication routes
 app.use("/api/user", authRoutes);

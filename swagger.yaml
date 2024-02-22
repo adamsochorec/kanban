@@ -16,7 +16,7 @@ components:
       name: auth-token
 
   schemas:
-    Product:
+    pizza:
       type: object
       properties:
         id:
@@ -96,25 +96,25 @@ paths:
                   data:
                     type: string
 
-  /products:
+  /pizzas:
     get:
-      summary: Retrieves a list of Products
-      description: Retrieves a list of products as JSON objects.
+      summary: Retrieves a list of pizzas
+      description: Retrieves a list of pizzas as JSON objects.
       security:
         - ApiKeyAuth: []
       responses:
         200:
-          description: A list of product JSON objects in an array.
+          description: A list of pizza JSON objects in an array.
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/Product"
+                  $ref: "#/components/schemas/pizza"
 
     post:
-      summary: Create a new Product
-      description: Create a new Product
+      summary: Create a new pizza
+      description: Create a new pizza
       security:
         - ApiKeyAuth: []
       requestBody:
@@ -122,20 +122,20 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Product"
+              $ref: "#/components/schemas/pizza"
 
       responses:
         201:
-          description: Product created succesfully
+          description: pizza created succesfully
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Product"
+                $ref: "#/components/schemas/pizza"
 
-  /products/{id}:
+  /pizzas/{id}:
     get:
-      summary: Specific Product
-      description: Retrieves a specific Product based on it id.
+      summary: Specific pizza
+      description: Retrieves a specific pizza based on it id.
       parameters:
         - in: path
           name: id
@@ -145,17 +145,17 @@ paths:
             type: string
       responses:
         200:
-          description: A Product in the format of a JSON object.
+          description: A pizza in the format of a JSON object.
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/Product"
+                  $ref: "#/components/schemas/pizza"
 
     put:
-      summary: Updates a specific Product
-      description: Updates a specific Product based on it id
+      summary: Updates a specific pizza
+      description: Updates a specific pizza based on it id
       security:
         - ApiKeyAuth: []
       parameters:
@@ -170,19 +170,19 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Product"
+              $ref: "#/components/schemas/pizza"
 
       responses:
         201:
-          description: Product updated succesfully
+          description: pizza updated succesfully
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Product"
+                $ref: "#/components/schemas/pizza"
 
     delete:
-      summary: Deletes a specific Product
-      description: Deletes a specific Product based on it id
+      summary: Deletes a specific pizza
+      description: Deletes a specific pizza based on it id
       security:
         - ApiKeyAuth: []
       parameters:
@@ -195,8 +195,8 @@ paths:
 
       responses:
         201:
-          description: Product deleted succesfully
+          description: pizza deleted succesfully
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Product"
+                $ref: "#/components/schemas/pizza"
