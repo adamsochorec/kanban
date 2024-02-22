@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const product = require("../models/product");
+const { verifyToken } = require("../validation");
 
 // CRUD operations
 
@@ -18,7 +19,7 @@ router.post("/", (req, res) => {
 });
 
 // Read all products -- get
-router.get("/", (req, res) => {
+router.get("/", verifyToken, (req, res) => {
   product
     .find()
     .then((data) => {

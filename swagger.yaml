@@ -100,6 +100,8 @@ paths:
     get:
       summary: Retrieves a list of Products
       description: Retrieves a list of products as JSON objects.
+      security:
+        - ApiKeyAuth: []
       responses:
         200:
           description: A list of product JSON objects in an array.

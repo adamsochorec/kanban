@@ -38,7 +38,7 @@ app.get("/api/welcome", (req, res) => {
 });
 
 // post, put, delete -> CRUD
-app.use("/api/products", verifyToken, productRoutes);
+app.use("/api/products", productRoutes);
 app.use("/api/user", authRoutes);
 
 // api/user
