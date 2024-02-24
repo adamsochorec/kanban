@@ -23,11 +23,11 @@ components:
           type: string
         name:
           type: string
-        description:
+        ingredients:
           type: string
         price:
           type: number
-        inStock:
+        available:
           type: boolean
 
     User:
