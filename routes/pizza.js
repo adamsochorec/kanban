@@ -22,7 +22,7 @@ router.post("/", (req, res) => {
 });
 
 // Read all pizzas - GET
-router.get("/", verifyToken, (req, res) => {
+router.get("/", (req, res) => {
   // Retrieve all pizzas from the database
   pizza
     .find()
@@ -48,7 +48,7 @@ router.get("/available", (req, res) => {
 });
 
 // Read specific pizza by ID - GET
-router.get("/:id", (req, res) => {
+router.get("/:id", verifyToken, (req, res) => {
   // Retrieve a specific pizza by its ID
   pizza
     .findById(req.params.id)
@@ -61,7 +61,7 @@ router.get("/:id", (req, res) => {
 });
 
 // Update specific pizza by ID - PUT
-router.put("/:id", (req, res) => {
+router.put("/:id", verifyToken, (req, res) => {
   // Extract pizza ID from the request parameters
   const id = req.params.id;
 
@@ -86,7 +86,7 @@ router.put("/:id", (req, res) => {
 });
 
 // Delete specific pizza by ID - DELETE
-router.delete("/:id", (req, res) => {
+router.delete("/:id", verifyToken, (req, res) => {
   // Extract pizza ID from the request parameters
   const id = req.params.id;
 

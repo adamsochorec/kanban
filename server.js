@@ -24,10 +24,7 @@ app.use(bodyParser.json());
 
 // Connect to MongoDB
 mongoose
-  .connect(process.env.DBHOST, {
-    useUnifiedTopology: true,
-    useNewUrlParser: true,
-  })
+  .connect(process.env.DBHOST)
   .catch((error) => console.log("Error connecting to MongoDB:" + error));
 
 mongoose.connection.once("open", () =>
