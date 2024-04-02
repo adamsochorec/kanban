@@ -27,7 +27,7 @@ router.get("/", (req, res) => {
   pizza
     .find()
     .then((data) => {
-      res.send(data);
+      res.send(mapArray(data));
     })
     .catch((err) => {
       res.status(500).send({ message: err.message });
@@ -109,6 +109,20 @@ router.delete("/:id", verifyToken, (req, res) => {
       res.status(500).send({ message: "Error deleting pizza with id=" + id });
     });
 });
+
+function mapArray(inputArray) {
+  let outputArray = inputArray.map((element) => mapData(element));
+  return outputArray;
+}
+function mapData(element) {
+  let outputObj = {
+    name: element.name,
+    describe: element.ingredients,
+    price: element.price,
+    available: element.available,
+  };
+  return outputObj;
+}
 
 // Export the router for use in other files
 module.exports = router;

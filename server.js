@@ -7,6 +7,22 @@ const { verifyToken } = require("./validation");
 // Swagger dependencies
 const swaggerUi = require("swagger-ui-express");
 const yaml = require("yamljs");
+const cors = require("cors");
+
+require("dotenv-flow").config();
+
+// CORS npm package
+
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-Width, Content-Type, Accept"
+  );
+  next();
+});
+
+app.use(bodyParser.json);
 
 // Setup Swagger documentation
 const swaggerDefinition = yaml.load("./swagger.yaml");
