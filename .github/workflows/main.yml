@@ -39,4 +39,3 @@ jobs:
          SERVICE_ID: ${{ secrets.SERVICE_ID }}
 
 
-         https://api.render.com/deploy/?key=un1WZxinbzs
