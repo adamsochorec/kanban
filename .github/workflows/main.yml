@@ -35,3 +35,8 @@ jobs:
          DBHOST: ${{ secrets.DBHOST }}
          TOKEN_SECRET: ${{ secrets.TOKEN_SECRET }}
          JWT_EXPIRES_IN: ${{ secrets.JWT_EXPIRES_IN }}
+         RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+         SERVICE_ID: ${{ secrets.SERVICE_ID }}
+
+
+         https://api.render.com/deploy/?key=un1WZxinbzs
