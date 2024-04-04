@@ -6,7 +6,7 @@ const { verifyToken } = require("../validation");
 // CRUD operations
 
 // Create pizza - POST
-router.post("/", (req, res) => {
+router.post("/", verifyToken,  (req, res) => {
   // Extract data from the request body
   const data = req.body;
 
@@ -14,7 +14,7 @@ router.post("/", (req, res) => {
   pizza
     .insertMany(data)
     .then((data) => {
-      res.send(data);
+      res.status(201).send(data);
     })
     .catch((err) => {
       res.status(500).send({ message: err.message });
@@ -48,7 +48,7 @@ router.get("/available", (req, res) => {
 });
 
 // Read specific pizza by ID - GET
-router.get("/:id", verifyToken, (req, res) => {
+router.get("/:id", (req, res) => {
   // Retrieve a specific pizza by its ID
   pizza
     .findById(req.params.id)
@@ -61,7 +61,7 @@ router.get("/:id", verifyToken, (req, res) => {
 });
 
 // Update specific pizza by ID - PUT
-router.put("/:id", verifyToken, (req, res) => {
+router.put("/:id", (req, res) => {
   // Extract pizza ID from the request parameters
   const id = req.params.id;
 
@@ -86,7 +86,7 @@ router.put("/:id", verifyToken, (req, res) => {
 });
 
 // Delete specific pizza by ID - DELETE
-router.delete("/:id", verifyToken, (req, res) => {
+router.delete("/:id", /*verifyToken,*/ (req, res) => {
   // Extract pizza ID from the request parameters
   const id = req.params.id;
 

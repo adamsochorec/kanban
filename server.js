@@ -22,7 +22,7 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.use(bodyParser.json);
+app.use(bodyParser.json());
 
 // Setup Swagger documentation
 const swaggerDefinition = yaml.load("./swagger.yaml");
@@ -39,9 +39,14 @@ require("dotenv-flow").config();
 app.use(bodyParser.json());
 
 // Connect to MongoDB
+mongoose.set('strictQuery', false);
 mongoose
-  .connect(process.env.DBHOST)
-  .catch((error) => console.log("Error connecting to MongoDB:" + error));
+  .connect(
+    process.env.DBHOST,
+    {
+      useUnifiedTopology: true,
+      useNewUrlParser: true
+    }).catch((error) => console.log("Error connecting to MongoDB:" + error));
 
 mongoose.connection.once("open", () =>
   console.log("Connected successfully to MongoDB")

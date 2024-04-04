@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
-// Define the pizza schema with fields for name, ingediences, price, and avalabile status
+// Define the pizza schema with fields for name, ingredients, price, and available status
 let pizzaSchema = new Schema({
   name: { type: String },
   ingredients: { type: String },
