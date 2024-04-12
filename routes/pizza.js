@@ -6,20 +6,23 @@ const { verifyToken } = require("../validation");
 // CRUD operations
 
 // Create pizza - POST
-router.post("/", verifyToken,  (req, res) => {
-  // Extract data from the request body
-  const data = req.body;
+router.post(
+  "/",
+  /* verifyToken, */ (req, res) => {
+    // Extract data from the request body
+    const data = req.body;
 
-  // Insert new pizza data into the database
-  pizza
-    .insertMany(data)
-    .then((data) => {
-      res.status(201).send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({ message: err.message });
-    });
-});
+    // Insert new pizza data into the database
+    pizza
+      .insertMany(data)
+      .then((data) => {
+        res.status(201).send(data);
+      })
+      .catch((err) => {
+        res.status(500).send({ message: err.message });
+      });
+  }
+);
 
 // Read all pizzas - GET
 router.get("/", (req, res) => {
@@ -86,29 +89,32 @@ router.put("/:id", (req, res) => {
 });
 
 // Delete specific pizza by ID - DELETE
-router.delete("/:id", /*verifyToken,*/ (req, res) => {
-  // Extract pizza ID from the request parameters
-  const id = req.params.id;
+router.delete(
+  "/:id",
+  /*verifyToken,*/ (req, res) => {
+    // Extract pizza ID from the request parameters
+    const id = req.params.id;
 
-  // Delete the pizza with the provided ID
-  pizza
-    .findByIdAndDelete(id)
-    .then((data) => {
-      if (!data) {
-        res.status(404).send({
-          message:
-            "Cannot delete pizza with id=" +
-            id +
-            ". Maybe pizza was not found!",
-        });
-      } else {
-        res.send({ message: "Pizza was successfully deleted." });
-      }
-    })
-    .catch((err) => {
-      res.status(500).send({ message: "Error deleting pizza with id=" + id });
-    });
-});
+    // Delete the pizza with the provided ID
+    pizza
+      .findByIdAndDelete(id)
+      .then((data) => {
+        if (!data) {
+          res.status(404).send({
+            message:
+              "Cannot delete pizza with id=" +
+              id +
+              ". Maybe pizza was not found!",
+          });
+        } else {
+          res.send({ message: "Pizza was successfully deleted." });
+        }
+      })
+      .catch((err) => {
+        res.status(500).send({ message: "Error deleting pizza with id=" + id });
+      });
+  }
+);
 
 function mapArray(inputArray) {
   let outputArray = inputArray.map((element) => mapData(element));
@@ -116,10 +122,10 @@ function mapArray(inputArray) {
 }
 function mapData(element) {
   let outputObj = {
-    name: element.name,
-    describe: element.ingredients,
-    price: element.price,
-    available: element.available,
+    task: element.task,
+    description: element.description,
+    status: element.status,
+    time: element.time,
   };
   return outputObj;
 }

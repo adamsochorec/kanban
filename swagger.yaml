@@ -21,14 +21,14 @@ components:
       properties:
         id:
           type: string
-        name:
+        task:
           type: string
-        ingredients:
+        description:
           type: string
-        price:
+        status:
+          type: string
+        time:
           type: number
-        available:
-          type: boolean
 
     User:
       type: object
