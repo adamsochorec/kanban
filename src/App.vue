@@ -10,9 +10,9 @@ provideAuth();
     <img
       alt="Vue logo"
       class="logo"
-      src="@/assets/logo.svg"
-      width="125"
-      height="125"
+      src="@/assets/spongebob.png"
+      width="autp"
+      height="30"
     />
 
     <div class="wrapper">
@@ -25,8 +25,16 @@ provideAuth();
 
 <style scoped>
 header {
-  line-height: 1.5;
-  max-height: 100vh;
+  background-color: #34495e;
+  height: 50px;
+  position: absolute;
+  top: 0;
+  display: flex;
+  left: 0;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
 }
 
 .logo {
@@ -38,7 +46,6 @@ nav {
   width: 100%;
   font-size: 12px;
   text-align: center;
-  margin-top: 2rem;
 }
 
 nav a.router-link-exact-active {
@@ -74,6 +81,7 @@ nav a:first-of-type {
     display: flex;
     place-items: flex-start;
     flex-wrap: wrap;
+    align-items: center;
   }
 
   nav {

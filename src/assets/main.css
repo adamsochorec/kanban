@@ -1,35 +1,75 @@
-@import './base.css';
+@import "./base.css";
 
 #app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  font-weight: normal;
+  display: grid;
+  font-family: var(--content-font);
+  overflow: hidden;
+  margin-top: 6rem;
+  padding: 0 2rem 2rem;
+  grid-template-columns: 1fr 1fr;
+  justify-items: end;
 }
 
 a,
 .green {
   text-decoration: none;
-  color: rgb(18, 81, 168);
+  color: #41b883;
   transition: 0.4s;
-  padding: 3px;
+  padding: 10px;
 }
-
+.todo-item {
+  background-color: rgb(65, 184, 131);
+  padding: 20px 10px;
+  border-radius: 10px;
+  width: 300px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+}
+.todo-item p {
+  color: white;
+}
+.todos-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+}
+.totodetail {
+  width: 400px;
+}
+input {
+  width: 100%;
+}
+input,
+button {
+  padding: 10px 5px;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  margin: 5px 0;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+  cursor: pointer !important;
+}
+.status input {
+  box-shadow: none;
+  width: unset;
+  margin-right: 10px;
+}
+.status {
+  display: block;
+}
+button {
+  background-color: #34495e;
+  color: white;
+}
+button.login {
+  padding: 10px;
+  background-color: #41b883;
+  margin: 0 10px;
+}
+button:hover {
+  opacity: 90%;
+}
 @media (hover: hover) {
   a:hover {
     background-color: hsla(160, 100%, 37%, 0.2);
-  }
-}
-
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
-
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
   }
 }
