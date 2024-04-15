@@ -10,7 +10,8 @@ const auth = useAuth();
 </script>
 <template>
   <nav>
-    <RouterLink to="/about">About</RouterLink>
+    <!--     <RouterLink to="/about">About</RouterLink>
+ -->
     <RouterLink to="/todos">Projects</RouterLink>
     <!-- changed path -->
   </nav>
@@ -21,5 +22,6 @@ const auth = useAuth();
   <div v-else>
     <button class="login" @click="auth.logOut()">Log Out</button>
   </div>
-  <p>{{ auth.isAuthenticated }}</p>
+  <!--   <p>{{ auth.isAuthenticated }}</p>
+ -->
 </template>

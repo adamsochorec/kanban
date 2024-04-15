@@ -10,8 +10,10 @@ const getTodos = () => {
   console.log("todoId: ", todoId.value);
 
   const state = ref({
-    newAuthor: "",
     newTodoItem: "",
+    newTodoDuration: "",
+    newTodoDescription: "",
+    newTodoStatus: "",
     todos: {},
   });
 
@@ -72,12 +74,10 @@ const getTodos = () => {
           "auth-token": localStorage.lsToken,
         },
         body: JSON.stringify({
-          //author: state.value.newAuthor,
-          //todo: state.value.newTodoItem
-          name: state.value.newAuthor,
-          description: state.value.newTodoItem,
-          price: 100,
-          inStock: true,
+          todo: state.value.newTodoItem,
+          description: state.value.newTodoDescription,
+          duration: state.value.newTodoDuration,
+          status: state.value.newTodoStatus,
           id: 12,
         }),
       };

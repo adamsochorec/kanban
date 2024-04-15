@@ -58,7 +58,7 @@
       <input
         type="text"
         placeholder="Task"
-        v-model="state.newAuthor"
+        v-model="state.newTodo"
         class="input-field"
       />
     </div>
@@ -66,7 +66,7 @@
       <input
         type="text"
         placeholder="Description"
-        v-model="state.newTodoItem"
+        v-model="state.newTodoDescription"
         class="input-field"
       />
     </div>
@@ -74,22 +74,37 @@
       <input
         type="text"
         placeholder="Duration in hours"
-        v-model="state.newTodoItem"
+        v-model="state.newTodoDuration"
         class="input-field"
       />
     </div>
     <div class="input-container">
       <div class="status">
         <p><u>Status:</u></p>
-        <input id="waiting" type="radio" value="Waiting" />
-        <label for="">Waiting</label><br />
-        <input id="doing" type="radio" value="Doing" />
-        <label for="">Doing</label><br />
-        <input id="done" type="radio" value="Done" />
-        <label for="">Done</label><br />
+        <input
+          type="radio"
+          id="waiting"
+          value="Waiting"
+          v-model="state.newTodoStatus"
+        />
+        <label for="waiting">Waiting</label><br />
+        <input
+          type="radio"
+          id="doing"
+          value="Doing"
+          v-model="state.newTodoStatus"
+        />
+        <label for="doing">Doing</label><br />
+        <input
+          type="radio"
+          id="done"
+          value="Done"
+          v-model="state.newTodoStatus"
+        />
+        <label for="done">Done</label><br />
       </div>
+      <button @click="newTodo()" class="new-todo-btn">Create task</button>
     </div>
-    <button @click="newTodo()" class="new-todo-btn">Create task</button>
   </div>
 </template>
 

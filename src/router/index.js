@@ -15,21 +15,27 @@ const router = createRouter({
       name: "todos",
       component: () =>
         import(/* webpackChunkName: "about" */ "../views/TodosView.vue"),
+      meta: {
+        requiresAuth: true,
+      },
     },
     {
       path: "/todo/:id",
       name: "todo single",
       component: () =>
         import(/* webpackChunkName: "about" */ "../views/TodoDetail.vue"),
+      meta: {
+        requiresAuth: true,
+      },
     },
-    {
+    /*   {
       path: "/about",
       name: "about",
       component: () => import("../views/AboutView.vue"),
       meta: {
         requiresAuth: true,
       },
-    },
+    }, */
   ],
 });
 
