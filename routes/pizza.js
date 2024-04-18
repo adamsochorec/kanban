@@ -122,6 +122,7 @@ function mapArray(inputArray) {
 }
 function mapData(element) {
   let outputObj = {
+    id: element.id,
     task: element.task,
     description: element.description,
     status: element.status,
