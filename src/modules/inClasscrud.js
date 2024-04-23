@@ -1,27 +1,26 @@
-import { ref } from 'vue'
+import { ref } from "vue";
 
 const getTodosInClass = () => {
-  const todos = ref([])
+  const todos = ref([]);
 
-  const fetchTodos = async() => {
+  const fetchTodos = async () => {
     try {
-      const response = await fetch('http://localhost:3000/Todos') // axios
-    
-      if(!response.ok) {
-        throw new Error('Something went wrong')
+      const response = await fetch("http://localhost:3000/pizzas"); // axios
+
+      if (!response.ok) {
+        throw new Error("Something went wrong");
       }
-      const data = await response.json()
-      todos.value = data
+      const data = await response.json();
+      todos.value = data;
+    } catch (error) {
+      console.log(error);
     }
-    catch (error) {
-      console.log(error)
-    }
-  }
+  };
 
   return {
     todos,
-    fetchTodos
-  }
-}
+    fetchTodos,
+  };
+};
 
-export default getTodosInClass
+export default getTodosInClass;

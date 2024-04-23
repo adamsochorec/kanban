@@ -12,7 +12,7 @@ const auth = useAuth();
   <nav>
     <!--     <RouterLink to="/about">About</RouterLink>
  -->
-    <RouterLink to="/todos">Projects</RouterLink>
+    <RouterLink to="/pizzas">Projects</RouterLink>
     <!-- changed path -->
   </nav>
 

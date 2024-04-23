@@ -51,6 +51,7 @@ const getTodos = () => {
   const GetAllTodos = async () => {
     try {
       const response = await fetch("http://localhost:4000/api/pizzas/");
+      // .filter(user => user.id == id)   // id 1 & id 2
       const data = await response.json();
       state.value.todos = data;
       console.log(data);
@@ -79,6 +80,7 @@ const getTodos = () => {
           duration: state.value.newTodoDuration,
           status: state.value.newTodoStatus,
           id: 12,
+          members: "2233fgg4409gsgdrklj",
         }),
       };
 
@@ -110,7 +112,8 @@ const getTodos = () => {
    */
 
   // Delete code here
-  const deleteTodo = async (id) => {
+  const deleteTodo = async (todo) => {
+    console.log("delete id from vue: ", todo.id);
     try {
       const requestOptions = {
         method: "DELETE",
@@ -120,7 +123,7 @@ const getTodos = () => {
         },
       };
       const response = await fetch(
-        `http://localhost:4000/api/pizzas/${id}`,
+        `http://localhost:4000/api/pizzas/${todo.id}`,
         requestOptions
       );
 
@@ -205,7 +208,7 @@ const getTodos = () => {
   const todo = ref({});
   const GetSpecificTodo = async (todoId) => {
     try {
-      const response = await fetch("http://localhost:3000/todos");
+      const response = await fetch(`http://localhost:4000/pizzas/${todoId}`);
 
       if (!response.ok) {
         throw new Error("Failed to fetch specific todo");

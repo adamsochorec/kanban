@@ -1,33 +1,34 @@
 <template lang="">
   <div class="totodetail">
     <h1>Edit task</h1>
-    <div v-for="item in todo" :key="item._id">
-      Author:
-      <h4>{{ item.author }}</h4>
+    <div v-for="item in todo" :key="item.id">
       Todo:
-      <p>{{ item.todo }}</p>
+      <h4>{{ item.description }}</h4>
+      Description:
+      <p>{{ item.description }}</p>
     </div>
     <hr />
-    <input type="text" placeholder="Author" v-model="state.newAuthor" />
-    <!--     <span>Test: {{ state.newAuthor }}</span>
- -->
+    <input type="text" v-model="state.newTodoDescription" />
+
     <br />
-    <input type="text" placeholder="Todo" v-model="state.newTodoItem" />
-    <!--     <span>Test: {{ state.newTodoItem }}</span>
- -->
+    <input type="text" v-model="state.newTodoItem" />
+
     <br />
-    <button @click="editTodo">Update Item</button>
+    <button @click="editTodo()">Update Item</button>
     <hr />
   </div>
 </template>
 <script>
+import { onMounted } from "vue";
 import todocrud from "../modules/todocrud";
 
 export default {
   setup() {
     const { editTodo, state, GetSpecificTodo, todo, todoId } = todocrud();
 
-    GetSpecificTodo();
+    onMounted(() => {
+      GetSpecificTodo(todoId.value);
+    });
 
     return {
       todo,

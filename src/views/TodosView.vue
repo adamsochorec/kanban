@@ -21,9 +21,7 @@
           Update Todo
         </button>
       </router-link>
-      <button @click="deleteTodo(todo._id)" class="delete-btn">
-        Delete Todo
-      </button>
+      <button @click="deleteTodo(todo)" class="delete-btn">Delete Todo</button>
       <div class="status">
         <p><u>Status:</u></p>
         <input
