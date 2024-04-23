@@ -5,6 +5,7 @@ const Schema = mongoose.Schema;
 
 // Define the pizza schema with fields for name, ingredients, price, and available status
 let pizzaSchema = new Schema({
+  // id: { type: String },
   task: { type: String },
   description: { type: String },
   status: { type: String },

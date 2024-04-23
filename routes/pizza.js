@@ -89,32 +89,34 @@ router.put("/:id", (req, res) => {
 });
 
 // Delete specific pizza by ID - DELETE
-router.delete(
-  "/:id",
-  /*verifyToken,*/ (req, res) => {
-    // Extract pizza ID from the request parameters
-    const id = req.params.id;
+router.delete("/:id", (req, res) => {
+  const id = req.params.id;
+  console.log("Attempting to delete pizza with ID:", id);
 
-    // Delete the pizza with the provided ID
-    pizza
-      .findByIdAndDelete(id)
-      .then((data) => {
-        if (!data) {
-          res.status(404).send({
-            message:
-              "Cannot delete pizza with id=" +
-              id +
-              ". Maybe pizza was not found!",
-          });
-        } else {
-          res.send({ message: "Pizza was successfully deleted." });
-        }
-      })
-      .catch((err) => {
-        res.status(500).send({ message: "Error deleting pizza with id=" + id });
+  pizza
+    .findByIdAndDelete(id)
+    .then((data) => {
+      if (!data) {
+        console.log("No pizza found with ID:", id);
+        res.status(404).send({
+          message:
+            "Cannot delete pizza with id=" +
+            id +
+            ". Maybe pizza was not found!",
+        });
+      } else {
+        console.log("Deleted pizza with ID:", id);
+        res.send({ message: "Pizza was successfully deleted." });
+      }
+    })
+    .catch((err) => {
+      console.error("Error deleting pizza with ID:", id, err);
+      res.status(500).send({
+        message: "Error deleting pizza with id=" + id,
+        error: err,
       });
-  }
-);
+    });
+});
 
 function mapArray(inputArray) {
   let outputArray = inputArray.map((element) => mapData(element));

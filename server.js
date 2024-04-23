@@ -17,8 +17,13 @@ app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
     "Access-Control-Allow-Headers",
-    "Origin, X-Requested-Width, Content-Type, Accept"
+    "auth-token, Origin, X-Requested-Width, Content-Type, Accept"
   );
+  res.header(
+    "Access-Control-Allow-Methods",
+    "GET,HEAD,OPTIONS,POST,PUT,DELETE"
+  );
+
   next();
 });
 
@@ -39,14 +44,13 @@ require("dotenv-flow").config();
 app.use(bodyParser.json());
 
 // Connect to MongoDB
-mongoose.set('strictQuery', false);
+mongoose.set("strictQuery", false);
 mongoose
-  .connect(
-    process.env.DBHOST,
-    {
-      useUnifiedTopology: true,
-      useNewUrlParser: true
-    }).catch((error) => console.log("Error connecting to MongoDB:" + error));
+  .connect(process.env.DBHOST, {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+  })
+  .catch((error) => console.log("Error connecting to MongoDB:" + error));
 
 mongoose.connection.once("open", () =>
   console.log("Connected successfully to MongoDB")
