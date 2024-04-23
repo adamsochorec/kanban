@@ -1,7 +1,7 @@
 import { ref } from "vue";
 
 const getTodosInClass = () => {
-  const todos = ref([]);
+  const pizzas = ref([]);
 
   const fetchTodos = async () => {
     try {
@@ -11,14 +11,14 @@ const getTodosInClass = () => {
         throw new Error("Something went wrong");
       }
       const data = await response.json();
-      todos.value = data;
+      pizzas.value = data;
     } catch (error) {
       console.log(error);
     }
   };
 
   return {
-    todos,
+    pizzas,
     fetchTodos,
   };
 };

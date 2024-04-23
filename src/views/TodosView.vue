@@ -1,67 +1,71 @@
 <template>
-  <div class="todos-container">
+  <div class="pizzas-container">
     <div
-      v-for="todo in state.todos"
-      :key="todo._id"
+      v-for="pizza in state.pizzas"
+      :key="pizza._id"
       :class="{
-        'todo-item': true,
-        waiting: todo.status === 'Waiting',
-        doing: todo.status === 'Doing',
-        done: todo.status === 'Done',
+        'pizza-item': true,
+        waiting: pizza.status === 'Waiting',
+        doing: pizza.status === 'Doing',
+        done: pizza.status === 'Done',
       }"
     >
-      <router-link :to="`/todo/${todo._id}`" class="todo-link">
-        <p>{{ todo.id }}</p>
+      <router-link :to="`/pizzas/${pizza.id}`" class="pizza-link">
         <p>
-          <u> {{ todo.task }}</u>
+          <u> {{ pizza.task }}</u>
         </p>
-        <p>{{ todo.description }}</p>
-        <p><u>Time:</u> {{ todo.time }} hours</p>
-        <button @click="editTodo(todo._id)" class="edit-btn">
+        <p>{{ pizza.description }}</p>
+        <p><u>Time:</u> {{ pizza.time }} hours</p>
+        <button @click="editPizza(pizza._id)" class="edit-btn">
           Update Todo
         </button>
       </router-link>
-      <button @click="deleteTodo(todo)" class="delete-btn">Delete Todo</button>
+      <button @click="deletePizza(pizza)" class="delete-btn">
+        Delete Todo
+      </button>
       <div class="status">
         <p><u>Status:</u></p>
         <input
           type="radio"
-          id="waiting-{{todo._id}}"
+          id="waiting-{{pizza._id}}"
           value="Waiting"
-          v-model="todo.status"
+          v-model="pizza.status"
         />
-        <label :for="'waiting-' + todo._id">Waiting</label><br />
+        <label :for="'waiting-' + pizza._id">Waiting</label><br />
         <input
           type="radio"
-          id="doing-{{todo._id}}"
+          id="doing-{{pizza._id}}"
           value="Doing"
-          v-model="todo.status"
+          v-model="pizza.status"
         />
-        <label :for="'doing-' + todo._id">Doing</label><br />
+        <label :for="'doing-' + pizza._id">Doing</label><br />
         <input
           type="radio"
-          id="done-{{todo._id}}"
+          id="done-{{pizza._id}}"
           value="Done"
-          v-model="todo.status"
+          v-model="pizza.status"
         />
-        <label :for="'done-' + todo._id">Done</label>
+        <label :for="'done-' + pizza._id">Done</label>
       </div>
     </div>
   </div>
-  <div>
+  <div id="createTask">
     <h1>Create a Task</h1>
     <div class="input-container">
       <!--     <span>Test: {{ state.newAuthor }}</span> <br />
  -->
+
       <input
+        required
         type="text"
         placeholder="Task"
-        v-model="state.newTodo"
+        v-model="state.newPizza"
         class="input-field"
       />
     </div>
     <div class="input-container">
       <input
+        required
         type="text"
         placeholder="Description"
         v-model="state.newTodoDescription"
@@ -70,6 +74,7 @@
     </div>
     <div class="input-container">
       <input
+        required
         type="text"
         placeholder="Duration in hours"
         v-model="state.newTodoDuration"
@@ -80,6 +85,7 @@
       <div class="status">
         <p><u>Status:</u></p>
         <input
+          required
           type="radio"
           id="waiting"
           value="Waiting"
@@ -87,6 +93,7 @@
         />
         <label for="waiting">Waiting</label><br />
         <input
+          required
           type="radio"
           id="doing"
           value="Doing"
@@ -94,6 +101,7 @@
         />
         <label for="doing">Doing</label><br />
         <input
+          required
           type="radio"
           id="done"
           value="Done"
@@ -101,7 +109,7 @@
         />
         <label for="done">Done</label><br />
       </div>
-      <button @click="newTodo()" class="new-todo-btn">Create task</button>
+      <button @click="newPizza()" class="new-pizza-btn">Create task</button>
     </div>
   </div>
 </template>
@@ -111,27 +119,28 @@ import todocrud from "../modules/todocrud";
 import { onMounted } from "vue";
 export default {
   setup() {
-    const { state, GetAllTodos, newTodo, deleteTodo, editTodo } = todocrud();
+    const { state, GetAllPizzas, newPizza, deletePizza, editPizza } =
+      todocrud();
 
     onMounted(() => {
-      GetAllTodos();
+      GetAllPizzas();
     });
 
-    return { state, GetAllTodos, newTodo, deleteTodo, editTodo };
+    return { state, GetAllPizzas, newPizza, deletePizza, editPizza };
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.todo-item {
+.pizza-item {
   &.waiting {
-    background-color: rgba(65, 184, 131, 0.7);
+    background-color: rgba(184, 65, 65, 0.7);
   }
   &.doing {
-    background-color: rgba(65, 184, 131, 1);
+    background-color: rgba(65, 184, 131, 0.7);
   }
   &.done {
-    background-color: rgba(65, 184, 131, 0.2);
+    background-color: rgba(65, 184, 131, 0.7);
   }
 }
 </style>

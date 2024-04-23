@@ -7,14 +7,11 @@ provideAuth();
 
 <template>
   <header>
-    <img
-      alt="Vue logo"
-      class="logo"
-      src="@/assets/spongebob.png"
-      width="autp"
-      height="30"
-    />
-
+    <RouterLink to="/pizzas">
+      <div class="logo-container">
+        <span>Aba</span>
+      </div></RouterLink
+    >
     <div class="wrapper">
       <NavigationView />
     </div>
@@ -25,7 +22,6 @@ provideAuth();
 
 <style scoped>
 header {
-  background-color: #34495e;
   height: 50px;
   position: absolute;
   top: 0;
@@ -34,7 +30,6 @@ header {
   width: 100%;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
 }
 
 .logo {
@@ -70,7 +65,6 @@ nav a:first-of-type {
   header {
     display: flex;
     place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
   }
 
   .logo {

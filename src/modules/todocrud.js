@@ -1,22 +1,21 @@
 import { ref, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
-const getTodos = () => {
-  // Route and router are used to grab the todoId from the URL and then stored in computed so we can use it in the rest of the code
-  const route = useRoute(); // Used to grab the todoId from the URL and then stored in computed so we can use it in the rest of the code
+const getPizzas = () => {
+  // Route and router are used to grab the pizzaID from the URL and then stored in computed so we can use it in the rest of the code
+  const route = useRoute(); // Used to grab the pizzaID from the URL and then stored in computed so we can use it in the rest of the code
   const router = useRouter();
 
-  const todoId = computed(() => route.params.id);
-  console.log("todoId: ", todoId.value);
+  const pizzaID = computed(() => route.params.id);
+  console.log("pizzaID: ", pizzaID.value);
 
   const state = ref({
-    newTodoItem: "",
+    newPizzaName: "",
     newTodoDuration: "",
     newTodoDescription: "",
     newTodoStatus: "",
-    todos: {},
+    pizzas: {},
   });
-
   const swaggerLogin = async () => {
     try {
       const requestOptions = {
@@ -43,17 +42,17 @@ const getTodos = () => {
   };
 
   /**
-   * Fetches all todo items from the server.
-   * @returns {Promise<void>} A Promise that resolves once all todo items are successfully fetched from the server.
+   * Fetches all pizzas items from the server.
+   * @returns {Promise<void>} A Promise that resolves once all pizzas items are successfully fetched from the server.
    * @throws {Error} If there is an error during the fetching process.
    */
   // improved error handling with async/await and try/catch blocks. Better readability and maintainability.
-  const GetAllTodos = async () => {
+  const GetAllPizzas = async () => {
     try {
       const response = await fetch("http://localhost:4000/api/pizzas/");
       // .filter(user => user.id == id)   // id 1 & id 2
       const data = await response.json();
-      state.value.todos = data;
+      state.value.pizzas = data;
       console.log(data);
     } catch (error) {
       console.error(error);
@@ -61,12 +60,12 @@ const getTodos = () => {
   };
 
   /** JSDOC
-   * Creates a new todo item and sends it to the server for storage.
-   * @returns {Promise<void>} A Promise that resolves once the new todo item is successfully created and stored on the server.
+   * Creates a new pizzas item and sends it to the server for storage.
+   * @returns {Promise<void>} A Promise that resolves once the new pizzas item is successfully created and stored on the server.
    * @throws {Error} If there is an error during the creation or storage process.
    */
   // Improved error handling with async/await and try/catch blocks. Better readability and maintainability.
-  const newTodo = async () => {
+  const newPizza = async () => {
     try {
       const requestOptions = {
         method: "POST",
@@ -75,12 +74,14 @@ const getTodos = () => {
           "auth-token": localStorage.lsToken,
         },
         body: JSON.stringify({
-          todo: state.value.newTodoItem,
+          pizza: state.value.newPizzaName,
           description: state.value.newTodoDescription,
           duration: state.value.newTodoDuration,
           status: state.value.newTodoStatus,
-          id: 12,
-          members: "2233fgg4409gsgdrklj",
+          // MongoDB will automatically generate an _id for each document inserted into a collection
+          // So, you don't need to manually set the id when creating a new pizza
+          // However, if you have a specific id that you want to use, you can include it here
+          id: state.value.pizzaId,
         }),
       };
 
@@ -92,28 +93,28 @@ const getTodos = () => {
 
       // Check if the request was successful
       if (!response.ok) {
-        throw new Error("Failed to add new todo");
+        throw new Error("Failed to add new pizza");
       }
 
-      // Refresh todos after successfully adding a new one
-      await GetAllTodos();
+      // Refresh pizzas after successfully adding a new one
+      await GetAllPizzas();
     } catch (error) {
-      console.error("Error adding new todo:", error);
+      console.error("Error adding new pizzas:", error);
       // Handle the error as appropriate (e.g., show an error message to the user)
     }
   };
 
   /**
-   * Deletes a todo item from the server.
+   * Deletes a pizzas item from the server.
    * @async
-   * @param {string} _id - The ID of the todo item to delete.
+   * @param {string} _id - The ID of the pizzas item to delete.
    * @throws {Error} If the deletion request fails or the response is not ok.
-   * @returns {Promise<void>} A Promise that resolves when the todo item is successfully deleted.
+   * @returns {Promise<void>} A Promise that resolves when the pizzas item is successfully deleted.
    */
 
   // Delete code here
-  const deleteTodo = async (todo) => {
-    console.log("delete id from vue: ", todo.id);
+  const deletePizza = async (pizza) => {
+    console.log("delete id from vue: ", pizza.id);
     try {
       const requestOptions = {
         method: "DELETE",
@@ -123,17 +124,17 @@ const getTodos = () => {
         },
       };
       const response = await fetch(
-        `http://localhost:4000/api/pizzas/${todo.id}`,
+        `http://localhost:4000/api/pizzas/${pizza.id}`,
         requestOptions
       );
 
       if (!response.ok) {
-        throw new Error("Failed to delete todo");
+        throw new Error("Failed to delete pizza");
       }
 
-      await GetAllTodos();
+      await GetAllPizzas();
     } catch (error) {
-      console.log("Error deleting todo:", error);
+      console.log("Error deleting pizzas:", error);
     }
   };
 
@@ -142,38 +143,38 @@ const getTodos = () => {
   /**
    * Test for handleEdit */
   /**
-   * Function to handle editing a todo item.
+   * Function to handle editing a pizzas item.
    * @async
-   * @function handleEditTodo
+   * @function handleEditPizza
    * @returns {Promise<void>}
    */
-  // Edit handleEditTodo here. Seperate the function from the editTodo function for better readability and maintainability.
+  // Edit handleEditPizza here. Seperate the function from the editPizza function for better readability and maintainability.
 
   /**
-   * Function to edit a todo item.
+   * Function to edit a pizzas item.
    * @async
-   * @function editTodo
-   * @param {_id} _id - The ID of the todo item to edit.
-   * @param {Object} data - The updated data for the todo item.
+   * @function editPizza
+   * @param {_id} _id - The ID of the pizzas item to edit.
+   * @param {Object} data - The updated data for the pizzas item.
    * @returns {Promise<void>}
    */
   // Edit code here
-  const handleEditTodo = async () => {
+  const handleEditPizza = async () => {
     try {
-      if (!todoId.value) {
-        throw new Error("No todo ID provided");
+      if (!pizzaID.value) {
+        throw new Error("No pizzas ID provided");
       }
 
-      await editTodo(todoId.value, {
+      await editPizza(pizzaID.value, {
         author: state.value.newAuthor,
-        todo: state.value.newTodoItem,
+        pizza: state.value.newPizzaName,
       });
     } catch (error) {
-      console.log("Error editing todo:", error);
+      console.log("Error editing pizzas:", error);
     }
   };
 
-  const editTodo = async (_id, data) => {
+  const editPizza = async (_id, data) => {
     try {
       const requestOptions = {
         method: "PUT",
@@ -184,41 +185,41 @@ const getTodos = () => {
         body: JSON.stringify(data),
       };
 
-      const url = `http://localhost:3000/todos/update/${_id}`;
+      const url = `http://localhost:4000/api/pizzas/${pizzaID}`;
       const response = await fetch(url, requestOptions);
 
       if (!response.ok) {
-        throw new Error("Failed to edit todo");
+        throw new Error("Failed to edit pizzas");
       }
 
-      router.push("/todos");
+      router.push("/pizzas");
     } catch (error) {
-      console.log("Error editing todo:", error);
+      console.log("Error editing pizzas:", error);
     }
   };
 
   /**
-   * Fetches a specific todo item from the server.
-   * @param {string} todoId - The ID of the todo item to fetch.
-   * @returns {Promise<void>} A Promise that resolves once the specific todo item is successfully fetched from the server.
+   * Fetches a specific pizzas item from the server.
+   * @param {string} pizzaID - The ID of the pizzas item to fetch.
+   * @returns {Promise<void>} A Promise that resolves once the specific pizzas item is successfully fetched from the server.
    * @throws {Error} If there is an error during the fetching process.
    */
-  // Fetch specific todo item code here + todo ref array
+  // Fetch specific pizzas item code here + pizzas ref array
 
-  const todo = ref({});
-  const GetSpecificTodo = async (todoId) => {
+  const pizza = ref({});
+  const GetSpecificPizza = async (pizzaID) => {
     try {
-      const response = await fetch(`http://localhost:4000/pizzas/${todoId}`);
+      console.log("Fetching pizza with ID:", pizzaID); // Debugging log
+
+      const response = await fetch(
+        `http://localhost:4000/api/pizzas/${pizzaID}`
+      );
 
       if (!response.ok) {
-        throw new Error("Failed to fetch specific todo");
+        throw new Error(`Failed to fetch specific pizza with ID: ${pizzaID}`);
       }
-
       const data = await response.json();
-
-      const specificTodo = data.find((t) => t._id === todoId);
-
-      todo.value = specificTodo;
+      pizza.value = data;
     } catch (error) {
       console.error(error);
     }
@@ -226,15 +227,15 @@ const getTodos = () => {
 
   return {
     state,
-    GetAllTodos,
-    newTodo,
-    deleteTodo,
-    GetSpecificTodo,
-    todo,
-    todoId,
-    handleEditTodo,
+    GetAllPizzas,
+    newPizza,
+    deletePizza,
+    GetSpecificPizza,
+    pizza,
+    pizzaID,
+    handleEditPizza,
     swaggerLogin,
   };
 };
 
-export default getTodos;
+export default getPizzas;

@@ -1,42 +1,125 @@
 @import "./base.css";
 
+:root {
+  --primary-color: 255, 255, 255;
+  --secondary-color: 0, 94, 184;
+  --homepage-padding: 20px;
+  --logo-font: Galactic Basic;
+}
+@font-face {
+  font-family: Galactic Basic;
+  src: url(./galbasic.ttf) format("truetype");
+}
+body {
+  color: var(--primary-color);
+  background: rgb(var(--secondary-color));
+}
+body p,
+h1,
+h2,
+label,
+input {
+  color: rgb(var(--primary-color));
+}
+header {
+  background-color: rgba(var(--primary-color), 1);
+  padding: var(--homepage-padding);
+}
+#logo {
+  fill: rgb(var(--primary-color));
+  height: 28px;
+}
+#user {
+  height: 20px;
+  width: auto;
+  fill: rgb(var(--secondary-color));
+}
+.home {
+  font-family: var(--logo-font);
+  position: absolute;
+  left: var(--homepage-padding);
+  bottom: var(--homepage-padding);
+  width: 600px;
+}
+.logo-container span {
+  font-family: var(--logo-font);
+  font-size: 36px;
+  color: rgb(var(--secondary-color));
+}
 #app {
   display: grid;
   font-family: var(--content-font);
   overflow: hidden;
   margin-top: 6rem;
-  padding: 0 2rem 2rem;
+  padding: 0 var(--homepage-padding) var(--homepage-padding);
   grid-template-columns: 1fr 1fr;
   justify-items: end;
 }
-
-a,
-.green {
-  text-decoration: none;
-  color: #41b883;
-  transition: 0.4s;
-  padding: 10px;
+#buttons,
+.fifty-fifty {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
 }
-.todo-item {
-  background-color: rgb(65, 184, 131);
+#saveChanges {
+  background-color: rgb(var(--primary-color));
+}
+.fifty-fifty {
+  display: grrd;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+a {
+  text-decoration: none;
+}
+.fifty-fifty input {
+  width: 350px;
+}
+nav a {
+  text-decoration: none;
+  color: var(--primary-color);
+  padding: 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  color: rgb(var(--secondary-color));
+}
+.delete-btn {
+  margin-left: var(--homepage-padding);
+}
+.pizza-item {
+  background-color: rgb(var(--primary-color));
   padding: 20px 10px;
   border-radius: 10px;
   width: 300px;
+  -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
 }
-.todo-item p {
-  color: white;
+
+#cancel {
+  outline: solid 2px rgb(var(--primary-color));
+  color: rgb(var(--primary-color));
+  background-color: transparent;
 }
-.todos-container {
+#cancel:hover {
+  outline: rgb(var(--primary-color));
+  color: rgb(var(--secondary-color));
+  background-color: rgb(var(--primary-color));
+}
+.pizzas-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 10px;
 }
 .totodetail {
-  width: 400px;
+  width: 500px;
 }
 input {
   width: 100%;
+  color: black;
 }
 input,
 button {
@@ -44,11 +127,14 @@ button {
   border-radius: 5px;
   outline: none;
   border: none;
+
   margin: 5px 0;
+  -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
   cursor: pointer !important;
 }
 .status input {
+  -webkit-box-shadow: none;
   box-shadow: none;
   width: unset;
   margin-right: 10px;
@@ -56,20 +142,48 @@ button {
 .status {
   display: block;
 }
-button {
-  background-color: #34495e;
-  color: white;
-}
 button.login {
-  padding: 10px;
-  background-color: #41b883;
+  padding: 5px 10px;
+  -webkit-box-shadow: transparent;
+  box-shadow: transparent;
   margin: 0 10px;
+  background-color: rgb(var(--primary-color));
+  outline: 2px solid rgb(var(--secondary-color));
+  color: rgb(var(--secondary-color));
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  font-weight: bold;
+  color: rgb(var(--secondary-color));
+}
+
+button.login:hover {
+  background-color: rgb(var(--secondary-color));
+  color: rgb(var(--primary-color));
+}
+button.login:hover #user {
+  fill: rgb(var(--primary-color));
 }
 button:hover {
   opacity: 90%;
 }
+button {
+  font-weight: bold;
+  color: rgb(var(--secondary-color));
+}
+.pizza-item button {
+  background-color: rgb(var(--primary-color));
+}
 @media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
+  nav a:hover {
+    background-color: rgba(var(--secondary-color), 1);
+    color: rgb(var(--primary-color));
+    border-radius: 5px;
   }
 }
