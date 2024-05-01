@@ -1,7 +1,7 @@
 <template lang="">
   <div class="totodetail">
     <div class="fifty-fifty">
-      <h1>Editing</h1>
+      <h1>Edit</h1>
     </div>
     <hr />
     <br />
@@ -13,7 +13,7 @@
         required
         type="text"
         v-model="pizza.task"
-        @input="state.newPizzaName = $event.target.value"
+        @input="state.newTaskName = $event.target.value"
       />
     </div>
     <br />
@@ -28,7 +28,7 @@
         type="text"
         required
         v-model="pizza.description"
-        @input="state.description = $event.target.value"
+        @input="state.newTodoDescription = $event.target.value"
       />
     </div>
     <br />
@@ -42,7 +42,7 @@
       <input
         type="number"
         required
-        v-model="pizza.time"
+        v-model="pizza.duration"
         @input="state.newTodoDuration = $event.target.value"
       />
     </div>
@@ -50,8 +50,10 @@
     <hr />
     <br />
     <div id="buttons">
-      <button id="cancel" @click="$router.go(-1)">Cancel</button>
-      <button id="saveChanges" @click="editPizza()">Save changes</button>
+      <button class="cta" id="cancel" @click="$router.go(-1)">Cancel</button>
+      <button class="cta" id="saveChanges" @click="handleEditPizza()">
+        Save changes
+      </button>
     </div>
   </div>
 </template>
@@ -60,7 +62,14 @@ import todocrud from "../modules/todocrud";
 import { onMounted } from "vue";
 export default {
   setup() {
-    const { editPizza, state, GetSpecificPizza, pizza, pizzaID } = todocrud();
+    const {
+      handleEditPizza,
+      editPizza,
+      state,
+      GetSpecificPizza,
+      pizza,
+      pizzaID,
+    } = todocrud();
 
     onMounted(() => {
       GetSpecificPizza(pizzaID.value);
@@ -71,6 +80,7 @@ export default {
       GetSpecificPizza,
       editPizza,
       state,
+      handleEditPizza,
     };
   },
 };

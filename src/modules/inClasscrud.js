@@ -5,7 +5,9 @@ const getTodosInClass = () => {
 
   const fetchTodos = async () => {
     try {
-      const response = await fetch("http://localhost:3000/pizzas"); // axios
+      const response = await fetch(
+        "https://men-restful-api-bbe2.onrender.com/pizzas"
+      ); // axios
 
       if (!response.ok) {
         throw new Error("Something went wrong");

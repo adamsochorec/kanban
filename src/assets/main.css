@@ -36,9 +36,6 @@ header {
 }
 .home {
   font-family: var(--logo-font);
-  position: absolute;
-  left: var(--homepage-padding);
-  bottom: var(--homepage-padding);
   width: 600px;
 }
 .logo-container span {
@@ -68,7 +65,6 @@ header {
   background-color: rgb(var(--primary-color));
 }
 .fifty-fifty {
-  display: grrd;
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
@@ -87,18 +83,24 @@ nav a {
   font-weight: bold;
   color: rgb(var(--secondary-color));
 }
-.delete-btn {
-  margin-left: var(--homepage-padding);
+
+.edit-btn svg,
+.delete-btn svg {
+  height: 20px;
+  fill: rgb(var(--secondary-color));
 }
+
 .pizza-item {
   background-color: rgb(var(--primary-color));
-  padding: 20px 10px;
+  padding: 20px;
   border-radius: 10px;
   width: 300px;
   -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
 }
-
+.cta.delete-btn {
+  margin-left: 26px;
+}
 #cancel {
   outline: solid 2px rgb(var(--primary-color));
   color: rgb(var(--primary-color));
@@ -114,6 +116,7 @@ nav a {
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 10px;
 }
+
 .totodetail {
   width: 500px;
 }
@@ -122,12 +125,11 @@ input {
   color: black;
 }
 input,
-button {
+.cta {
   padding: 10px 5px;
   border-radius: 5px;
   outline: none;
   border: none;
-
   margin: 5px 0;
   -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
@@ -179,6 +181,7 @@ button {
 }
 .pizza-item button {
   background-color: rgb(var(--primary-color));
+  width: 45%;
 }
 @media (hover: hover) {
   nav a:hover {

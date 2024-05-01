@@ -29,7 +29,10 @@ const getPizzas = () => {
           password: "12345678",
         }),
       };
-      await fetch("http://localhost:4000/api/user/login", requestOptions)
+      await fetch(
+        "https://men-restful-api-bbe2.onrender.com/api/user/login",
+        requestOptions
+      )
         .then((res) => res.json())
         .then((data) => {
           localStorage.setItem("lsToken", data.data.token);
@@ -49,7 +52,9 @@ const getPizzas = () => {
   // improved error handling with async/await and try/catch blocks. Better readability and maintainability.
   const GetAllPizzas = async () => {
     try {
-      const response = await fetch("http://localhost:4000/api/pizzas/");
+      const response = await fetch(
+        "https://men-restful-api-bbe2.onrender.com/api/pizzas/"
+      );
       // .filter(user => user.id == id)   // id 1 & id 2
       const data = await response.json();
       state.value.pizzas = data;
@@ -81,13 +86,13 @@ const getPizzas = () => {
           // MongoDB will automatically generate an _id for each document inserted into a collection
           // So, you don't need to manually set the id when creating a new pizza
           // However, if you have a specific id that you want to use, you can include it here
-          id: state.value.pizzaId,
+          id: state.value.pizzaID,
         }),
       };
 
       // Make the HTTP request
       const response = await fetch(
-        "http://localhost:4000/api/pizzas/",
+        "https://men-restful-api-bbe2.onrender.com/api/pizzas/",
         requestOptions
       );
 
@@ -124,7 +129,7 @@ const getPizzas = () => {
         },
       };
       const response = await fetch(
-        `http://localhost:4000/api/pizzas/${pizza.id}`,
+        `https://men-restful-api-bbe2.onrender.com/api/pizzas/${pizza.id}`,
         requestOptions
       );
 
@@ -166,9 +171,11 @@ const getPizzas = () => {
       }
 
       await editPizza(pizzaID.value, {
-        author: state.value.newAuthor,
-        pizza: state.value.newPizzaName,
+        task: state.value.newPizzaName,
+        description: state.value.newTodoDescription,
+        duration: state.value.newTodoDuration,
       });
+      //   debugger;
     } catch (error) {
       console.log("Error editing pizzas:", error);
     }
@@ -180,12 +187,13 @@ const getPizzas = () => {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          // "auth-token": state.token
+          "auth-token": localStorage.lsToken,
         },
         body: JSON.stringify(data),
       };
-
-      const url = `http://localhost:4000/api/pizzas/${pizzaID}`;
+      //debugger;
+      const url =
+        "https://men-restful-api-bbe2.onrender.com/api/pizzas/" + pizzaID.value;
       const response = await fetch(url, requestOptions);
 
       if (!response.ok) {
@@ -212,7 +220,7 @@ const getPizzas = () => {
       console.log("Fetching pizza with ID:", pizzaID); // Debugging log
 
       const response = await fetch(
-        `http://localhost:4000/api/pizzas/${pizzaID}`
+        `https://men-restful-api-bbe2.onrender.com/api/pizzas/${pizzaID}`
       );
 
       if (!response.ok) {

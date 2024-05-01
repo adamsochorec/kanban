@@ -17,7 +17,7 @@ const auth = useAuth();
   </nav>
 
   <div v-if="!auth.isAuthenticated.value">
-    <button class="login" @click="auth.logIn()">
+    <button class="cta login" @click="auth.logIn()">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="user">
         <!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
         <path
@@ -28,7 +28,7 @@ const auth = useAuth();
     </button>
   </div>
   <div v-else>
-    <button class="login" @click="auth.logOut()">
+    <button class="cta login" @click="auth.logOut()">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="user">
         <!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
         <path
