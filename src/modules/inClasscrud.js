@@ -6,7 +6,7 @@ const getTodosInClass = () => {
   const fetchTodos = async () => {
     try {
       const response = await fetch(
-        "https://men-restful-api-bbe2.onrender.com/pizzas"
+        "https://dwp-backend.adamsochorec.com/pizzas"
       ); // axios
 
       if (!response.ok) {
