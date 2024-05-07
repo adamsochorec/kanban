@@ -9,12 +9,8 @@
       <p>
         <u>Name:</u>
       </p>
-      <input
-        required
-        type="text"
-        v-model="pizza.task"
-        @input="state.newTaskName = $event.target.value"
-      />
+      <input required type="text" v-model="state.newPizzaName" />
+      <!--  @input="state.newTaskName = $event.target.value" -->
     </div>
     <br />
     <br />
@@ -24,12 +20,8 @@
       <p>
         <u>Description:</u>
       </p>
-      <input
-        type="text"
-        required
-        v-model="pizza.description"
-        @input="state.newTodoDescription = $event.target.value"
-      />
+      <input type="text" required v-model="state.newTodoDescription" />
+      <!--   @input="state.newTodoDescription = $event.target.value" -->
     </div>
     <br />
     <br />
@@ -39,12 +31,8 @@
       <p>
         <u>Time: (hours)</u>
       </p>
-      <input
-        type="number"
-        required
-        v-model="pizza.duration"
-        @input="state.newTodoDuration = $event.target.value"
-      />
+      <input type="number" required v-model="state.newTodoDuration" />
+      <!-- @input="state.newTodoDuration = $event.target.value" -->
     </div>
     <br />
     <hr />
@@ -74,6 +62,7 @@ export default {
     onMounted(() => {
       GetSpecificPizza(pizzaID.value);
     });
+
     return {
       pizza,
       pizzaID,

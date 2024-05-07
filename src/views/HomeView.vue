@@ -26,3 +26,8 @@ export default {
   components: {},
 };
 </script>
+<style lang="scss" scoped>
+#app {
+  justify-items: unset;
+}
+</style>
