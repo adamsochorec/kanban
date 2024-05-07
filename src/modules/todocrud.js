@@ -10,8 +10,8 @@ const getPizzas = () => {
   console.log("pizzaID: ", pizzaID.value);
 
   const state = ref({
-    newPizzaName: "",
-    newTodoDuration: "",
+    newTask: "",
+    newTodoTime: "",
     newTodoDescription: "",
     newTodoStatus: "",
     pizzas: {},
@@ -70,7 +70,16 @@ const getPizzas = () => {
    * @throws {Error} If there is an error during the creation or storage process.
    */
   // Improved error handling with async/await and try/catch blocks. Better readability and maintainability.
-  const newPizza = async () => {
+  const newTask = async () => {
+    if (
+      !state.value.newTask ||
+      !state.value.newTodoDescription ||
+      !state.value.newTodoTime ||
+      !state.value.newTodoStatus
+    ) {
+      console.error("All fields must be filled out");
+      return;
+    }
     try {
       const requestOptions = {
         method: "POST",
@@ -79,9 +88,9 @@ const getPizzas = () => {
           "auth-token": localStorage.lsToken,
         },
         body: JSON.stringify({
-          pizza: state.value.newPizzaName,
+          task: state.value.newTask,
           description: state.value.newTodoDescription,
-          duration: state.value.newTodoDuration,
+          time: state.value.newTodoTime,
           status: state.value.newTodoStatus,
           // MongoDB will automatically generate an _id for each document inserted into a collection
           // So, you don't need to manually set the id when creating a new pizza
@@ -169,11 +178,20 @@ const getPizzas = () => {
       if (!pizzaID.value) {
         throw new Error("No pizzas ID provided");
       }
-
+      if (
+        !state.value.newTask ||
+        !state.value.newTodoDescription ||
+        !state.value.newTodoTime ||
+        !state.value.newTodoStatus
+      ) {
+        console.error("All fields must be filled out");
+        return;
+      }
       await editPizza(pizzaID.value, {
-        task: state.value.newPizzaName,
+        task: state.value.newTask,
         description: state.value.newTodoDescription,
-        duration: state.value.newTodoDuration,
+        time: state.value.newTodoTime,
+        status: state.value.newTodoStatus,
       });
       //   debugger;
     } catch (error) {
@@ -236,7 +254,7 @@ const getPizzas = () => {
   return {
     state,
     GetAllPizzas,
-    newPizza,
+    newTask,
     deletePizza,
     GetSpecificPizza,
     pizza,

@@ -14,7 +14,9 @@
         <u> {{ pizza.task }}</u>
       </p>
       <p>{{ pizza.description }}</p>
-      <p><u>Duration:</u> {{ pizza.duration }} hours</p>
+      <p>
+        <u> {{ pizza.time }} hours</u>
+      </p>
       <div class="status">
         <p><u>Status:</u></p>
         <input
@@ -63,14 +65,15 @@
       </div>
     </div>
   </div>
-  <div id="createTask">
+  <form id="createTask" @submit.prevent="submitForm">
     <h1>Create a Task</h1>
+
     <div class="input-container">
       <input
         required
         type="text"
-        placeholder="Task"
-        v-model="state.newPizza"
+        placeholder="Name"
+        v-model="state.newTask"
         class="input-field"
       />
     </div>
@@ -88,41 +91,49 @@
         required
         type="number"
         placeholder="Duration (hours)"
-        v-model="state.newTodoDuration"
+        v-model="state.newTodoTime"
         class="input-field"
       />
     </div>
     <div class="input-container">
       <div class="status">
         <p><u>Status:</u></p>
-        <input
-          required
-          type="radio"
-          id="waiting"
-          value="Waiting"
-          v-model="state.newTodoStatus"
-        />
-        <label for="waiting">Waiting</label><br />
-        <input
-          required
-          type="radio"
-          id="doing"
-          value="Doing"
-          v-model="state.newTodoStatus"
-        />
-        <label for="doing">Doing</label><br />
-        <input
-          required
-          type="radio"
-          id="done"
-          value="Done"
-          v-model="state.newTodoStatus"
-        />
-        <label for="done">Done</label><br />
+        <label for="waiting">
+          <input
+            required
+            type="radio"
+            id="waiting"
+            value="Waiting"
+            v-model="state.newTodoStatus"
+          />
+          Waiting</label
+        ><br />
+        <label for="doing">
+          <input
+            required
+            type="radio"
+            id="doing"
+            value="Doing"
+            v-model="state.newTodoStatus"
+          />
+          Doing</label
+        ><br />
+        <label for="done"
+          ><input
+            required
+            type="radio"
+            id="done"
+            value="Done"
+            v-model="state.newTodoStatus"
+          />
+          Done</label
+        ><br />
       </div>
-      <button @click="newPizza()" class="cta new-pizza-btn">Create task</button>
+      <button type="submit" @click="newTask()" class="cta new-pizza-btn">
+        Create task
+      </button>
     </div>
-  </div>
+  </form>
 </template>
 
 <script>
@@ -130,14 +141,13 @@ import todocrud from "../modules/todocrud";
 import { onMounted } from "vue";
 export default {
   setup() {
-    const { state, GetAllPizzas, newPizza, deletePizza, editPizza } =
-      todocrud();
+    const { state, GetAllPizzas, newTask, deletePizza, editPizza } = todocrud();
 
     onMounted(() => {
       GetAllPizzas();
     });
 
-    return { state, GetAllPizzas, newPizza, deletePizza, editPizza };
+    return { state, GetAllPizzas, newTask, deletePizza, editPizza };
   },
 };
 </script>

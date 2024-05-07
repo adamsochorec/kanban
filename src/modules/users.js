@@ -21,6 +21,7 @@ export function provideAuth() {
   const logOut = async () => {
     try {
       localStorage.removeItem("user");
+      localStorage.removeItem("lsToken"); // removes token from local storage after user is being loged out / ends session
       isAuthenticated.value = false;
       console.log("User is logged out");
       router.push("/");

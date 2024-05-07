@@ -1,5 +1,5 @@
 <template lang="">
-  <div class="totodetail">
+  <form @submit.prevent="submitForm" class="totodetail">
     <div class="fifty-fifty">
       <h1>Edit</h1>
     </div>
@@ -9,7 +9,7 @@
       <p>
         <u>Name:</u>
       </p>
-      <input required type="text" v-model="state.newPizzaName" />
+      <input required type="text" v-model="state.newTask" />
       <!--  @input="state.newTaskName = $event.target.value" -->
     </div>
     <br />
@@ -29,21 +29,67 @@
     <br />
     <div class="fifty-fifty">
       <p>
-        <u>Time: (hours)</u>
+        <u>Duration: (hours)</u>
       </p>
-      <input type="number" required v-model="state.newTodoDuration" />
-      <!-- @input="state.newTodoDuration = $event.target.value" -->
+      <input type="number" required v-model="state.newTodoTime" />
+      <!-- @input="state.newTodoTime = $event.target.value" -->
     </div>
     <br />
+    <br />
+    <hr />
+    <br />
+    <form>
+      <div class="input-container">
+        <div class="status">
+          <p><u>Status:</u></p>
+          <label for="waiting">
+            <input
+              required
+              type="radio"
+              id="waiting"
+              value="Waiting"
+              v-model="state.newTodoStatus"
+            />
+            Waiting</label
+          ><br />
+          <label for="doing">
+            <input
+              required
+              type="radio"
+              id="doing"
+              value="Doing"
+              v-model="state.newTodoStatus"
+            />
+            Doing</label
+          ><br />
+          <label for="done"
+            ><input
+              required
+              type="radio"
+              id="done"
+              value="Done"
+              v-model="state.newTodoStatus"
+            />
+            Done</label
+          ><br />
+        </div>
+      </div>
+    </form>
+    <br /><br />
     <hr />
     <br />
     <div id="buttons">
       <button class="cta" id="cancel" @click="$router.go(-1)">Cancel</button>
-      <button class="cta" id="saveChanges" @click="handleEditPizza()">
+      <button
+        type="submit"
+        class="cta"
+        id="saveChanges"
+        @click="handleEditPizza()"
+      >
         Save changes
       </button>
     </div>
-  </div>
+  </form>
 </template>
 <script>
 import todocrud from "../modules/todocrud";
