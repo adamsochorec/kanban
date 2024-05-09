@@ -80,12 +80,7 @@
     <br />
     <div id="buttons">
       <button class="cta" id="cancel" @click="$router.go(-1)">Cancel</button>
-      <button
-        type="submit"
-        class="cta"
-        id="saveChanges"
-        @click="handleEditPizza()"
-      >
+      <button type="submit" class="cta" id="saveChanges" @click="editPizza()">
         Save changes
       </button>
     </div>
@@ -96,14 +91,7 @@ import todocrud from "../modules/todocrud";
 import { onMounted } from "vue";
 export default {
   setup() {
-    const {
-      handleEditPizza,
-      editPizza,
-      state,
-      GetSpecificPizza,
-      pizza,
-      pizzaID,
-    } = todocrud();
+    const { editPizza, state, GetSpecificPizza, pizza, pizzaID } = todocrud();
 
     onMounted(() => {
       GetSpecificPizza(pizzaID.value);
@@ -113,9 +101,8 @@ export default {
       pizza,
       pizzaID,
       GetSpecificPizza,
-      editPizza,
       state,
-      handleEditPizza,
+      editPizza,
     };
   },
 };
