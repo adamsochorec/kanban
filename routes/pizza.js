@@ -6,26 +6,23 @@ const { verifyToken } = require("../validation");
 // CRUD operations
 
 // Create pizza - POST
-router.post(
-  "/",
-  /* verifyToken, */ (req, res) => {
-    // Extract data from the request body
-    const data = req.body;
+router.post("/", verifyToken, (req, res) => {
+  // Extract data from the request body
+  const data = req.body;
 
-    // Insert new pizza data into the database
-    pizza
-      .insertMany(data)
-      .then((data) => {
-        res.status(201).send(data);
-      })
-      .catch((err) => {
-        res.status(500).send({ message: err.message });
-      });
-  }
-);
+  // Insert new pizza data into the database
+  pizza
+    .insertMany(data)
+    .then((data) => {
+      res.status(201).send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({ message: err.message });
+    });
+});
 
 // Read all pizzas - GET
-router.get("/", (req, res) => {
+router.get("/", verifyToken, (req, res) => {
   // Retrieve all pizzas from the database
   pizza
     .find()
@@ -37,21 +34,8 @@ router.get("/", (req, res) => {
     });
 });
 
-// Read all pizzas in stock - GET
-router.get("/available", (req, res) => {
-  // Retrieve pizzas that are currently in stock
-  pizza
-    .find({ available: true })
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({ message: err.message });
-    });
-});
-
 // Read specific pizza by ID - GET
-router.get("/:id", (req, res) => {
+router.get("/:id", verifyToken, (req, res) => {
   // Retrieve a specific pizza by its ID
   pizza
     .findById(req.params.id)
@@ -64,7 +48,7 @@ router.get("/:id", (req, res) => {
 });
 
 // Update specific pizza by ID - PUT
-router.put("/:id", (req, res) => {
+router.put("/:id", verifyToken, (req, res) => {
   // Extract pizza ID from the request parameters
   const id = req.params.id;
 
@@ -89,7 +73,7 @@ router.put("/:id", (req, res) => {
 });
 
 // Delete specific pizza by ID - DELETE
-router.delete("/:id", (req, res) => {
+router.delete("/:id", verifyToken, (req, res) => {
   const id = req.params.id;
   console.log("Attempting to delete pizza with ID:", id);
 
