@@ -53,10 +53,9 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/User"
-
       responses:
         201:
-          description: User created succesfully
+          description: User created successfully
           content:
             application/json:
               schema:
@@ -70,7 +69,7 @@ paths:
   /user/login:
     post:
       summary: Login a User
-      description: Login a User in order to get JWT token (auth-token)
+      description: Login a User to get a JWT token (auth-token)
       requestBody:
         required: true
         content:
@@ -82,10 +81,9 @@ paths:
                   type: string
                 password:
                   type: string
-
       responses:
         200:
-          description: User logged in succesfully
+          description: User logged in successfully
           content:
             application/json:
               schema:
@@ -99,19 +97,18 @@ paths:
   /pizzas:
     get:
       summary: Retrieves a list of pizzas
-      description: Retrieves a list of pizzas as JSON objects.
+      description: Retrieves a list of pizzas as JSON objects
       security:
         - ApiKeyAuth: []
       responses:
         200:
-          description: A list of pizza JSON objects in an array.
+          description: A list of pizza JSON objects in an array
           content:
             application/json:
               schema:
                 type: array
                 items:
                   $ref: "#/components/schemas/pizza"
-
     post:
       summary: Create a new pizza
       description: Create a new pizza
@@ -123,10 +120,9 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/pizza"
-
       responses:
         201:
-          description: pizza created succesfully
+          description: Pizza created successfully
           content:
             application/json:
               schema:
@@ -134,8 +130,8 @@ paths:
 
   /pizzas/{id}:
     get:
-      summary: Specific pizza
-      description: Retrieves a specific pizza based on it id.
+      summary: Retrieve a specific pizza
+      description: Retrieves a specific pizza based on its id
       parameters:
         - in: path
           name: id
@@ -145,17 +141,14 @@ paths:
             type: string
       responses:
         200:
-          description: A pizza in the format of a JSON object.
+          description: A pizza in the format of a JSON object
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/pizza"
-
+                $ref: "#/components/schemas/pizza"
     put:
-      summary: Updates a specific pizza
-      description: Updates a specific pizza based on it id
+      summary: Update a specific pizza
+      description: Updates a specific pizza based on its id
       security:
         - ApiKeyAuth: []
       parameters:
@@ -171,18 +164,16 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/pizza"
-
       responses:
-        201:
-          description: pizza updated succesfully
+        200:
+          description: Pizza updated successfully
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/pizza"
-
     delete:
-      summary: Deletes a specific pizza
-      description: Deletes a specific pizza based on it id
+      summary: Delete a specific pizza
+      description: Deletes a specific pizza based on its id
       security:
         - ApiKeyAuth: []
       parameters:
@@ -192,10 +183,9 @@ paths:
           description: MongoDB id
           schema:
             type: string
-
       responses:
-        201:
-          description: pizza deleted succesfully
+        200:
+          description: Pizza deleted successfully
           content:
             application/json:
               schema:
