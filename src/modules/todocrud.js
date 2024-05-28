@@ -27,7 +27,7 @@ const getPizzas = () => {
           "auth-token": "localStorage.lsToken",
         },
         body: JSON.stringify({
-          email: "kw@easv.dk",
+          email: "test@test.com",
           password: "12345678",
         }),
       };
