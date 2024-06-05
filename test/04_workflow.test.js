@@ -13,8 +13,8 @@ describe("Pizza workflow tests", () => {
   it("should register + login a user, create Pizza and verify 1 in DB", (done) => {
     // Define a new user
     let user = {
-      name: "Peter Petersen",
-      email: "mail@petersen.com",
+      name: "Gabor Gabor",
+      email: "mail@gabor.dk",
       password: "123456",
     };
 
@@ -34,7 +34,7 @@ describe("Pizza workflow tests", () => {
           .request(server)
           .post("/api/user/login")
           .send({
-            email: "mail@petersen.com",
+            email: "mail@gabor.dk",
             password: "123456",
           })
           .end((err, res) => {
@@ -90,8 +90,8 @@ describe("Pizza workflow tests", () => {
   it("should register + login a user, create Pizza and delete it from DB", (done) => {
     // Define a new user
     let user = {
-      name: "Peter Petersen",
-      email: "mail@petersen.com",
+      name: "Gabor Gabor",
+      email: "mail@gabor.dk",
       password: "123456",
     };
 
@@ -111,7 +111,7 @@ describe("Pizza workflow tests", () => {
           .request(server)
           .post("/api/user/login")
           .send({
-            email: "mail@petersen.com",
+            email: "mail@gabor.dk",
             password: "123456",
           })
           .end((err, res) => {
@@ -169,8 +169,8 @@ describe("Pizza workflow tests", () => {
   it("invalid user input test", (done) => {
     // Define a new user with invalid input
     let user = {
-      name: "Peter Petersen",
-      email: "mail@petersen.com",
+      name: "Gabor Gabor",
+      email: "mail@gabor.dk",
       password: "123", //Faulty password - Joi/validation should catch this...
     };
 
