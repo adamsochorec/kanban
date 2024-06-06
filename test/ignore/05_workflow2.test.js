@@ -11,16 +11,4 @@ const server = require("../server");
 chai.use(chaiHttp);
 
 // Define a test suite named 'Product workflow tests - 2'
-describe("Product workflow tests - 2", () => {
-  // Add individual test cases and additional logic here
-  // Example:
-  // it('should retrieve a list of products', (done) => {
-  //     chai.request(server)
-  //         .get('/products')
-  //         .end((err, res) => {
-  //             expect(res).to.have.status(200);
-  //             expect(res.body).to.be.an('array');
-  //             done();
-  //         });
-  // });
-});
+describe("Product workflow tests - 2", () => {});
