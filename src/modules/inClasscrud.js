@@ -6,7 +6,7 @@ const getTodosInClass = () => {
   const fetchTodos = async () => {
     try {
       const response = await fetch(
-        "https://dwp-backend.adamsochorec.com/pizzas"
+        "https://men-restful-api-bbe2.onrender.com/pizzas"
       ); // Send a GET request to the specified URL and store the response
 
       if (!response.ok) {
