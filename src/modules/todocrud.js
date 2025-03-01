@@ -32,7 +32,7 @@ const getPizzas = () => {
         }),
       };
       await fetch(
-        "https://dwp-backend.adamsochorec.com/api/user/login",
+        "https://men-restful-api-bbe2.onrender.com/api/user/login",
         requestOptions
       )
         .then((res) => res.json())
@@ -50,7 +50,7 @@ const getPizzas = () => {
   const GetAllPizzas = async () => {
     try {
       const response = await fetch(
-        "https://dwp-backend.adamsochorec.com/api/pizzas/"
+        "https://men-restful-api-bbe2.onrender.com/api/pizzas/"
       );
       const data = await response.json();
       state.value.pizzas = data; // Update the pizzas state with the fetched data
@@ -89,7 +89,7 @@ const getPizzas = () => {
 
       // Make the HTTP request
       const response = await fetch(
-        "https://dwp-backend.adamsochorec.com/api/pizzas/",
+        "https://men-restful-api-bbe2.onrender.com/api/pizzas/",
         requestOptions
       );
 
@@ -118,7 +118,7 @@ const getPizzas = () => {
         },
       };
       const response = await fetch(
-        `https://dwp-backend.adamsochorec.com/api/pizzas/${pizza.id}`,
+        `https://men-restful-api-bbe2.onrender.com/api/pizzas/${pizza.id}`,
         requestOptions
       );
 
@@ -163,7 +163,7 @@ const getPizzas = () => {
       };
 
       const url =
-        "https://dwp-backend.adamsochorec.com/api/pizzas/" + pizzaID.value;
+        "https://men-restful-api-bbe2.onrender.com/api/pizzas/" + pizzaID.value;
       const response = await fetch(url, requestOptions);
 
       if (!response.ok) {
@@ -183,7 +183,7 @@ const getPizzas = () => {
       console.log("Fetching pizza with ID:", pizzaID); // Debugging log
 
       const response = await fetch(
-        `https://dwp-backend.adamsochorec.com/api/pizzas/${pizzaID}`
+        `https://men-restful-api-bbe2.onrender.com/api/pizzas/${pizzaID}`
       );
 
       if (!response.ok) {
