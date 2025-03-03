@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "../views/HomeView.vue";
+import index from "@/views/index.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -7,14 +7,13 @@ const router = createRouter({
     {
       path: "/",
       name: "home",
-      component: HomeView,
+      component: index,
     },
 
     {
       path: "/pizzas",
       name: "pizzas",
-      component: () =>
-        import(/* webpackChunkName: "about" */ "../views/TodosView.vue"),
+      component: () => import("@/views/task-overview.vue"),
       meta: {
         requiresAuth: true,
       },
@@ -22,20 +21,11 @@ const router = createRouter({
     {
       path: "/pizzas/:id",
       name: "pizzas single",
-      component: () =>
-        import(/* webpackChunkName: "about" */ "../views/TodoDetail.vue"),
+      component: () => import("@/views/task.vue"),
       meta: {
         requiresAuth: true,
       },
     },
-    /*   {
-      path: "/about",
-      name: "about",
-      component: () => import("../views/AboutView.vue"),
-      meta: {
-        requiresAuth: true,
-      },
-    }, */
   ],
 });
 

@@ -2,11 +2,10 @@ import { ref, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
 const getPizzas = () => {
-  // Route and router are used to grab the pizzaID from the URL and then stored in computed so we can use it in the rest of the code
-  const route = useRoute(); // Used to grab the pizzaID from the URL and then stored in computed so we can use it in the rest of the code
+  const route = useRoute();
   const router = useRouter();
 
-  const pizzaID = computed(() => route.params.id); // Compute the pizzaID from the route params
+  const pizzaID = computed(() => route.params.id);
   console.log("pizzaID: ", pizzaID.value);
 
   const state = ref({
@@ -14,10 +13,9 @@ const getPizzas = () => {
     newTodoTime: "",
     newTodoDescription: "",
     newTodoStatus: "",
-    pizzas: {},
+    pizzas: [],
   });
 
-  // Function to perform Swagger login
   const swaggerLogin = async () => {
     try {
       const requestOptions = {
@@ -37,7 +35,7 @@ const getPizzas = () => {
       )
         .then((res) => res.json())
         .then((data) => {
-          localStorage.setItem("lsToken", data.data.token); // Store the token in local storage
+          localStorage.setItem("lsToken", data.data.token);
           console.log("lsToken", data.data.token);
           console.log("lsStorage", localStorage.lsToken);
         });
@@ -46,21 +44,19 @@ const getPizzas = () => {
     }
   };
 
-  // Fetches all pizzas items from the server.
   const GetAllPizzas = async () => {
     try {
       const response = await fetch(
         "https://men-restful-api-bbe2.onrender.com/api/pizzas/"
       );
       const data = await response.json();
-      state.value.pizzas = data; // Update the pizzas state with the fetched data
+      state.value.pizzas = data;
       console.log(data);
     } catch (error) {
       console.error(error);
     }
   };
 
-  // Creates a new pizzas item and sends it to the server for storage.
   const newTask = async () => {
     if (
       !state.value.newTask ||
@@ -83,30 +79,24 @@ const getPizzas = () => {
           description: state.value.newTodoDescription,
           time: state.value.newTodoTime,
           status: state.value.newTodoStatus,
-          id: state.value.pizzaID,
         }),
       };
 
-      // Make the HTTP request
       const response = await fetch(
         "https://men-restful-api-bbe2.onrender.com/api/pizzas/",
         requestOptions
       );
 
-      // Check if the request was successful
       if (!response.ok) {
         throw new Error("Failed to add new pizza");
       }
 
-      // Refresh pizzas after successfully adding a new one
       await GetAllPizzas();
     } catch (error) {
       console.error("Error adding new pizzas:", error);
-      // Handle the error as appropriate (e.g., show an error message to the user)
     }
   };
 
-  // Deletes a pizzas item from the server.
   const deletePizza = async (pizza) => {
     console.log("delete id from vue: ", pizza.id);
     try {
@@ -132,7 +122,6 @@ const getPizzas = () => {
     }
   };
 
-  // Function to handle editing a pizzas item.
   const editPizza = async () => {
     try {
       if (!pizzaID.value) {
@@ -170,17 +159,16 @@ const getPizzas = () => {
         throw new Error("Failed to edit pizzas");
       }
 
-      router.push("/pizzas"); // Redirect to the pizzas page after successful edit
+      router.push("/pizzas");
     } catch (error) {
       console.log("Error editing pizzas:", error);
     }
   };
 
-  // Fetch specific pizzas item code here + pizzas ref array
   const pizza = ref({});
   const GetSpecificPizza = async (pizzaID) => {
     try {
-      console.log("Fetching pizza with ID:", pizzaID); // Debugging log
+      console.log("Fetching pizza with ID:", pizzaID);
 
       const response = await fetch(
         `https://men-restful-api-bbe2.onrender.com/api/pizzas/${pizzaID}`
@@ -190,7 +178,7 @@ const getPizzas = () => {
         throw new Error(`Failed to fetch specific pizza with ID: ${pizzaID}`);
       }
       const data = await response.json();
-      pizza.value = data; // Update the pizza ref with the fetched data
+      pizza.value = data;
     } catch (error) {
       console.error(error);
     }

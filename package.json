@@ -15,15 +15,21 @@
     "@fortawesome/free-regular-svg-icons": "^6.5.2",
     "@fortawesome/free-solid-svg-icons": "^6.5.2",
     "@fortawesome/vue-fontawesome": "^3.0.6",
+    "@primeuix/themes": "^1.0.0",
+    "@primevue/themes": "^4.3.1",
     "chai": "^5.1.0",
+    "primeicons": "^7.0.0",
+    "primevue": "^4.3.1",
     "vue": "^3.4.15",
     "vue-router": "^4.2.5"
   },
   "devDependencies": {
+    "@primevue/auto-import-resolver": "^4.3.1",
     "@vitejs/plugin-vue": "^5.0.3",
     "eslint": "^8.49.0",
     "eslint-plugin-vue": "^9.17.0",
     "sass": "^1.75.0",
+    "unplugin-vue-components": "^28.4.1",
     "vite": "^5.0.11"
   }
 }
