@@ -1,35 +1,24 @@
-# testinclass
+## Documentation
 
-This template should help get you started developing with Vue 3 in Vite.
+To check out docs, visit [men-restful-api-bbe2.onrender.com/api/docs](https://men-restful-api-bbe2.onrender.com/api/docs/).
 
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
+## Frontend Setup
 ```sh
-npm install
+cd frontend
+npm install ## Install Node
+npm run dev ## Compile and Hot-Reload for Development
+npm run build ## Type-Check, Compile and Minify for Production
 ```
 
-### Compile and Hot-Reload for Development
-
+## Backend Setup
 ```sh
-npm run dev
+cd backend
+npm install ## Install Node
+npm run dev ## Compile and Hot-Reload for Development
 ```
 
-### Compile and Minify for Production
-
+## API Setup
 ```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
+cd backend
+npm run start-dev ## Compile and Hot-Reload for Development
 ```
