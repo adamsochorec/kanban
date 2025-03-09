@@ -1,6 +1,6 @@
 <script setup>
 import { RouterView } from "vue-router";
-import NavigationView from "./components/nav.vue";
+import NavigationView from "./components/nav-bar.vue";
 import { provideAuth } from "./modules/users";
 import Footer from "@/components/footer.vue";
 

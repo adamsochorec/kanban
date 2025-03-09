@@ -11,7 +11,12 @@ const auth = useAuth();
       <RouterLink to="/pizzas" :class="slotProps.class">Tasks</RouterLink>
     </Button>
     <div v-if="!auth.isAuthenticated.value">
-      <Button label="Log in" icon="pi pi-user" @click="auth.logIn()"></Button>
+      <Button
+        label="Log in"
+        outlined
+        icon="pi pi-user"
+        @click="auth.logIn()"
+      ></Button>
     </div>
     <div v-else>
       <Button label="Log out" outlined icon="pi pi-user" @click="auth.logOut()">
@@ -20,8 +25,9 @@ const auth = useAuth();
     <Button
       icon="pi pi-github"
       as="a"
+      variant="text"
       class="nolink"
-      outlined
+      size="large"
       severity="contrast"
       href="https://github.com/adamsochorec/kanban"
       target="_blank"

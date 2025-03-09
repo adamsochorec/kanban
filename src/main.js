@@ -7,6 +7,7 @@ import PrimeVue from "primevue/config";
 import PrimeVueTheme from "@primevue/themes/aura";
 import { definePreset } from "@primevue/themes";
 import "primeicons/primeicons.css";
+import ToastService from "primevue/toastservice";
 
 const app = createApp(App);
 
@@ -29,6 +30,8 @@ const slavicmedia = definePreset(PrimeVueTheme, {
     },
   },
 });
+
+app.use(ToastService);
 
 app.use(PrimeVue, {
   theme: {

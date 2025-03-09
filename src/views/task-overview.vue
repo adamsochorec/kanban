@@ -8,7 +8,7 @@ const isDataLoaded = ref(false);
 
 onMounted(async () => {
   await GetAllPizzas();
-  isDataLoaded.value = false;
+  isDataLoaded.value = true;
 });
 </script>
 
@@ -19,7 +19,7 @@ onMounted(async () => {
       overflow: hidden;
       margin-top: 6rem;
       grid-template-columns: 75% 25%;
-      grid-gap: 1rem;
+      grid-gap: 3rem;
     "
   >
     <ScrollPanel style="width: 100%; height: 80vh">
@@ -67,8 +67,14 @@ onMounted(async () => {
         </Card>
       </div>
       <div
-        v-for="n in 9"
-        :key="n"
+        style="
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          grid-gap: 1rem;
+        "
+        v-if="isDataLoaded"
+      ></div>
+      <div
         v-else
         style="
           display: grid;
@@ -76,10 +82,68 @@ onMounted(async () => {
           grid-gap: 1rem;
         "
       >
-        <Skeleton width="100%" heigh="3rem" class="mb-2"></Skeleton>
+        <div
+          v-for="n in 6"
+          :key="n"
+          class="rounded"
+          style="
+            border: 0.5px solid var(--p-inputtext-hover-border-color);
+            padding: var(--grid-gap-3);
+          "
+        >
+          <Skeleton
+            width="70%"
+            height="1rem"
+            style="margin-bottom: var(--grid-gap-1)"
+          ></Skeleton>
+          <Skeleton
+            width="100%"
+            height="6rem"
+            style="margin-bottom: var(--grid-gap-1)"
+          ></Skeleton>
+          <div style="display: flex; justify-content: space-between">
+            <Skeleton
+              width="20%"
+              height="2rem"
+              style="margin-bottom: var(--grid-gap-1)"
+            ></Skeleton>
+            <Skeleton
+              width="20%"
+              height="2rem"
+              style="margin-bottom: var(--grid-gap-1)"
+            ></Skeleton>
+          </div>
+        </div>
       </div>
     </ScrollPanel>
-    <CreateTask></CreateTask>
+    <CreateTask v-if="isDataLoaded"></CreateTask>
+    <div v-else>
+      <Skeleton
+        width="70%"
+        height="1rem"
+        style="margin-bottom: var(--grid-gap-1)"
+      ></Skeleton>
+      <Skeleton
+        width="100%"
+        height="1rem"
+        style="margin-bottom: var(--grid-gap-1)"
+      ></Skeleton>
+      <Skeleton
+        width="40%"
+        height="1rem"
+        style="margin-bottom: var(--grid-gap-3)"
+      ></Skeleton>
+      <Skeleton
+        width="100%"
+        height="5rem"
+        style="margin-bottom: var(--grid-gap-1)"
+      ></Skeleton>
+      <Skeleton
+        width="100%"
+        height="1rem"
+        style="margin-bottom: var(--grid-gap-1)"
+      ></Skeleton>
+    </div>
   </div>
 </template>
 <style scoped>
