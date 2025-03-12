@@ -8,7 +8,12 @@ const auth = useAuth();
 <template>
   <nav style="display: flex; gap: 1rem">
     <Button variant="link" asChild v-slot="slotProps">
-      <RouterLink to="/pizzas" :class="slotProps.class">Tasks</RouterLink>
+      <router-link
+        to="/pizzas"
+        :class="slotProps.class"
+        style="text-decoration: underline; cursor: pointer"
+        >Tasks</router-link
+      >
     </Button>
     <div v-if="!auth.isAuthenticated.value">
       <Button

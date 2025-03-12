@@ -28,7 +28,13 @@ provideAuth();
     </RouterLink>
     <NavigationView />
   </header>
-  <main style="padding: 0 var(--homepage-padding); min-height: 82vh">
+  <main
+    style="
+      padding: 0 var(--homepage-padding);
+      min-height: 82vh;
+      margin-top: 6rem;
+    "
+  >
     <RouterView />
   </main>
   <Footer></Footer>

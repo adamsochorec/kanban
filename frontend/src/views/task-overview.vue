@@ -17,7 +17,6 @@ onMounted(async () => {
     style="
       display: grid;
       overflow: hidden;
-      margin-top: 6rem;
       grid-template-columns: 75% 25%;
       grid-gap: 3rem;
     "

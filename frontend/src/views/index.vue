@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 600px; margin-top: 6rem">
+  <div style="width: 600px">
     <div style="font-family: var(--logo-font)">
       <h1>Welme jkd</h1>
       <p>
