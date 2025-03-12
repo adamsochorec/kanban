@@ -64,102 +64,114 @@ const submitForm = ({ valid }) => {
       @submit="submitForm"
       :validateOnValueUpdate="false"
       :validateOnBlur="true"
-      class="totodetail flex flex-col gap-4 w-full sm:w-56"
+      class="totodetail flex flex-col gap-4 w-full sm:w-70"
     >
       <h1>Edit</h1>
-      <FloatLabel variant="in" class="flex flex-col gap-1">
-        <InputText name="newTask" type="text" v-model="state.newTask" fluid />
-        <label for="newTask">Name</label>
-      </FloatLabel>
-      <Message
-        v-if="$form.newTask?.invalid"
-        severity="error"
-        size="small"
-        variant="simple"
-        >{{ $form.newTask.error.message }}</Message
+      <FormField
+        v-slot="$field"
+        name="newTask"
+        :initialValue="pizza.task"
+        class="flex flex-col gap-1"
       >
-
-      <FloatLabel variant="in" class="flex flex-col gap-1">
-        <InputNumber
-          name="newTodoTime"
-          type="number"
-          v-model="state.newTodoTime"
-          fluid
-        />
-        <label for="newTodoTime">Duration</label>
-      </FloatLabel>
-      <Message
-        v-if="$form.newTodoTime?.invalid"
-        severity="error"
-        size="small"
-        variant="simple"
-        >{{ $form.newTodoTime.error.message }}</Message
-      >
-      <FloatLabel variant="in" class="flex flex-col gap-1">
-        <Textarea
-          name="newTodoDescription"
-          type="text"
-          fluid
-          v-model="state.newTodoDescription"
-          :formControl="{ validateOnValueUpdate: true }"
-        />
-        <label for="newTodoDescription">Description</label>
-      </FloatLabel>
-      <Message
-        v-if="$form.newTodoDescription?.invalid"
-        severity="error"
-        size="small"
-        variant="simple"
-        >{{ $form.newTodoDescription.error.message }}</Message
-      >
-      <div class="status">
-        <p><u>Status:</u></p>
-        <label for="waiting">
-          <input
-            type="radio"
-            id="waiting"
-            value="Waiting"
-            :formControl="{ validateOnValueUpdate: true }"
-            v-model="state.newTodoStatus"
-          />
-          Waiting</label
-        ><br />
-        <label for="doing">
-          <input
-            type="radio"
-            id="doing"
-            value="Doing"
-            :formControl="{ validateOnValueUpdate: true }"
-            v-model="state.newTodoStatus"
-          />
-          Doing</label
-        ><br />
-        <label for="done"
-          ><input
-            type="radio"
-            id="done"
-            :formControl="{ validateOnValueUpdate: true }"
-            value="Done"
-            v-model="state.newTodoStatus"
-          />
-          Done</label
-        >
+        <FloatLabel variant="in">
+          <InputText type="text" v-model="state.newTask" fluid />
+          <label for="newTask">Name</label>
+        </FloatLabel>
         <Message
-          v-if="$form.newTodoStatus?.invalid"
+          v-if="$field?.invalid"
           severity="error"
           size="small"
           variant="simple"
-          >{{ $form.newTodoStatus.error.message }}</Message
+          >{{ $field.error?.message }}</Message
         >
+      </FormField>
+      <FormField
+        v-slot="$field"
+        :initialValue="pizza.time"
+        name="newTodoTime"
+        class="flex flex-col gap-1"
+      >
+        <FloatLabel variant="in">
+          <InputNumber type="number" v-model="state.newTodoTime" fluid />
+          <label for="newTodoTime">Duration</label>
+        </FloatLabel>
+        <Message
+          v-if="$field?.invalid"
+          severity="error"
+          size="small"
+          variant="simple"
+          >{{ $field.error?.message }}</Message
+        >
+      </FormField>
+      <FormField
+        v-slot="$field"
+        :initialValue="pizza.description"
+        name="newTodoDescription"
+        class="flex flex-col gap-1"
+      >
+        <FloatLabel variant="in">
+          <Textarea type="text" fluid v-model="state.newTodoDescription" />
+          <label for="newTodoDescription">Description</label>
+        </FloatLabel>
+        <Message
+          v-if="$field?.invalid"
+          severity="error"
+          size="small"
+          variant="simple"
+          >{{ $field.error?.message }}</Message
+        >
+      </FormField>
+
+      <div class="card flex flex-wrap justify-center gap-4">
+        <RadioButtonGroup
+          name="newTodoStatus"
+          v-model="state.newTodoStatus"
+          :formControl="{ validateOnValueUpdate: true }"
+          class="card flex flex-wrap justify-center gap-4"
+        >
+          <div class="flex items-center gap-2">
+            <RadioButton
+              v-model="state.newTodoStatus"
+              inputId="status1"
+              value="Waiting"
+            />
+            <label for="status1"> Waiting </label>
+          </div>
+          <div class="flex items-center gap-2">
+            <RadioButton
+              v-model="state.newTodoStatus"
+              inputId="status2"
+              value="Doing"
+            />
+            <label for="status2"> Doing </label>
+          </div>
+          <div class="flex items-center gap-2">
+            <RadioButton
+              v-model="state.newTodoStatus"
+              inputId="status3"
+              value="Done"
+            />
+            <label for="status3"> Done </label>
+          </div>
+        </RadioButtonGroup>
       </div>
-      <Button
-        severity="danger"
-        label="Cancel"
-        icon="pi pi-times"
-        @click="$router.go(-1)"
-      ></Button>
-      <Button type="submit" severity="success" label="Save" icon="pi pi-check">
-      </Button>
+      <Message
+        v-if="$form.newTodoStatus?.invalid"
+        severity="error"
+        size="small"
+        variant="simple"
+        >{{ $form.newTodoStatus.error.message }}</Message
+      >
+      <div class="card flex justify-center">
+        <ButtonGroup>
+          <Button type="submit" label="Save" icon="pi pi-check"> </Button>
+          <Button
+            label="Cancel"
+            icon="pi pi-times"
+            @click="$router.go(-1)"
+          ></Button
+        ></ButtonGroup>
+      </div>
     </Form>
   </div>
 </template>
