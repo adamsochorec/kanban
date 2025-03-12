@@ -51,7 +51,7 @@ onMounted(async () => {
               <Button @click="editPizza(pizza.id)" asChild v-slot="slotProps">
                 <RouterLink
                   class="nolink"
-                  :to="`/pizzas/${pizza.id}`"
+                  :to="`/pizzas/${pizza.id}/edit`"
                   :class="slotProps.class"
                   ><i class="pi pi-pencil"></i
                 ></RouterLink>

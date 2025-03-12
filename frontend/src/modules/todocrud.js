@@ -50,7 +50,7 @@ const getPizzas = () => {
         "https://men-restful-api-bbe2.onrender.com/api/pizzas/"
       );
       const data = await response.json();
-      state.value.pizzas = data;
+      state.value.pizzas = data.reverse();
       console.log(data);
     } catch (error) {
       console.error(error);

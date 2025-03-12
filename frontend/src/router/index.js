@@ -19,7 +19,7 @@ const router = createRouter({
       },
     },
     {
-      path: "/pizzas/:id",
+      path: "/pizzas/:id/edit",
       name: "pizzas single",
       component: () => import("@/views/task.vue"),
       meta: {

@@ -5,7 +5,8 @@ import { Form } from "@primevue/forms";
 import { useToast } from "primevue/usetoast";
 import { FormField } from "@primevue/forms";
 
-const { editPizza, state, GetSpecificPizza, pizza, pizzaID } = todocrud();
+const { editPizza, state, GetSpecificPizza, deletePizza, pizza, pizzaID } =
+  todocrud();
 const toast = useToast();
 const initialValues = ref({
   newTask: "",
@@ -13,28 +14,32 @@ const initialValues = ref({
   newTodoTime: "",
   newTodoStatus: "",
 });
+
 onMounted(() => {
   GetSpecificPizza(pizzaID.value);
 });
+
+const handleDelete = () => {
+  deletePizza(pizza);
+  $router.go(-1);
+};
 
 const resolver = ({ values }) => {
   const errors = {};
 
   if (!values.newTask) {
-    errors.newTask = [{ message: "newTask is required." }];
+    errors.newTask = [{ message: "Name is required." }];
   }
 
   if (!values.newTodoDescription) {
-    errors.newTodoDescription = [
-      { message: "newTodoDescription is required." },
-    ];
+    errors.newTodoDescription = [{ message: "Description is required." }];
   }
 
   if (!values.newTodoTime) {
-    errors.newTodoTime = [{ message: "newTodoTime is required." }];
+    errors.newTodoTime = [{ message: "Duration is required." }];
   }
   if (!values.newTodoStatus) {
-    errors.newTodoStatus = [{ message: "newTodoStatus is required." }];
+    errors.newTodoStatus = [{ message: "Status is required." }];
   }
 
   return {
@@ -92,7 +97,13 @@ const submitForm = ({ valid }) => {
         class="flex flex-col gap-1"
       >
         <FloatLabel variant="in">
-          <InputNumber type="number" v-model="state.newTodoTime" fluid />
+          <InputNumber
+            type="number"
+            v-model="state.newTodoTime"
+            fluid
+            :useGrouping="false"
+            suffix=" hours"
+          />
           <label for="newTodoTime">Duration</label>
         </FloatLabel>
         <Message
@@ -165,6 +176,11 @@ const submitForm = ({ valid }) => {
       <div class="card flex justify-center">
         <ButtonGroup>
           <Button type="submit" label="Save" icon="pi pi-check"> </Button>
+          <Button
+            label="Delete"
+            @click="handleDelete()"
+            icon="pi pi-trash"
+          ></Button>
           <Button
             label="Cancel"
             icon="pi pi-times"

@@ -1,16 +1,43 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, reactive } from "vue";
 import todocrud from "@/modules/todocrud";
+import { Form } from "@primevue/forms";
+import { useToast } from "primevue/usetoast";
+import { FormField } from "@primevue/forms";
 
 const { state, GetAllPizzas, newTask } = todocrud();
+const toast = useToast();
 
-const submitForm = async () => {
-  await newTask();
-  // Clear the form fields after submission
-  state.newTask = "";
-  state.newTodoDescription = "";
-  state.newTodoTime = "";
-  state.newTodoStatus = "";
+const submitForm = ({ valid }) => {
+  if (valid) {
+    newTask();
+    toast.add({
+      severity: "success",
+      summary: "Form is submitted.",
+      life: 3000,
+    });
+  }
+};
+
+const resolver = ({ values }) => {
+  const errors = {};
+
+  if (!values.newTask) {
+    errors.newTask = [{ message: "Name is required." }];
+  }
+  if (!values.newTodoDescription) {
+    errors.newTodoDescription = [{ message: "Description is required." }];
+  }
+
+  if (!values.newTodoTime) {
+    errors.newTodoTime = [{ message: "Duration is required." }];
+  }
+  if (!values.newTodoStatus) {
+    errors.newTodoStatus = [{ message: "Status is required." }];
+  }
+  return {
+    errors,
+  };
 };
 
 onMounted(() => {
@@ -19,51 +46,121 @@ onMounted(() => {
 </script>
 
 <template>
-  <form style="width: 100%" id="createTask" @submit.prevent="submitForm">
-    <h3>Create a task</h3>
-    <FloatLabel variant="in" style="width: 100%; margin: var(--grid-gap-1) 0">
-      <InputText required v-model="state.newTask" class="input-field" />
-      <label for="newTask">Name</label>
-    </FloatLabel>
-    <FloatLabel variant="in" style="margin: var(--grid-gap-1) 0">
-      <InputNumber
-        required
-        :useGrouping="false"
-        v-model="state.newTodoTime"
-        suffix=" h"
-      />
-      <label for="newTodoTime">Duration</label>
-    </FloatLabel>
-    <FloatLabel variant="in" style="width: 100%; margin: var(--grid-gap-1) 0">
-      <TextArea required v-model="state.newTodoDescription" />
-      <label for="newTodoDescription">Description</label>
-    </FloatLabel>
-    <div style="display: flex; gap: 1rem; margin-bottom: var(--grid-gap-3)">
-      <div>
-        <RadioButton
+  <div>
+    <Toast />
+
+    <Form
+      v-slot="$form"
+      :initialValues="initialValues"
+      :resolver="resolver"
+      @submit="submitForm"
+      :validateOnValueUpdate="false"
+      :validateOnBlur="true"
+      class="totodetail flex flex-col gap-4 w-full sm:w-70"
+    >
+      <h3>Create a task</h3>
+      <FormField
+        v-slot="$field"
+        name="newTask"
+        initialValue=""
+        class="flex flex-col gap-1"
+      >
+        <FloatLabel variant="in">
+          <InputText type="text" v-model="state.newTask" fluid />
+          <label for="newTask">Name</label>
+        </FloatLabel>
+        <Message
+          v-if="$field?.invalid"
+          severity="error"
+          size="small"
+          variant="simple"
+          >{{ $field.error?.message }}</Message
+        >
+      </FormField>
+      <FormField
+        v-slot="$field"
+        initialValue=""
+        name="newTodoTime"
+        class="flex flex-col gap-1"
+      >
+        <FloatLabel variant="in">
+          <InputNumber
+            type="number"
+            v-model="state.newTodoTime"
+            fluid
+            :useGrouping="false"
+            suffix=" hours"
+          />
+          <label for="newTodoTime">Duration</label>
+        </FloatLabel>
+        <Message
+          v-if="$field?.invalid"
+          severity="error"
+          size="small"
+          variant="simple"
+          >{{ $field.error?.message }}</Message
+        >
+      </FormField>
+      <FormField
+        v-slot="$field"
+        initialValue=""
+        name="newTodoDescription"
+        class="flex flex-col gap-1"
+      >
+        <FloatLabel variant="in">
+          <Textarea type="text" fluid v-model="state.newTodoDescription" />
+          <label for="newTodoDescription">Description</label>
+        </FloatLabel>
+        <Message
+          v-if="$field?.invalid"
+          severity="error"
+          size="small"
+          variant="simple"
+          >{{ $field.error?.message }}</Message
+        >
+      </FormField>
+
+      <div class="card flex flex-wrap justify-center gap-4">
+        <RadioButtonGroup
+          name="newTodoStatus"
           v-model="state.newTodoStatus"
-          inputId="waiting"
-          value="waiting"
-        />
-        <label for="waiting">Waiting</label>
+          :formControl="{ validateOnValueUpdate: true }"
+          class="card flex flex-wrap justify-center gap-4"
+        >
+          <div class="flex items-center gap-2">
+            <RadioButton
+              v-model="state.newTodoStatus"
+              inputId="status1"
+              value="Waiting"
+            />
+            <label for="status1"> Waiting </label>
+          </div>
+          <div class="flex items-center gap-2">
+            <RadioButton
+              v-model="state.newTodoStatus"
+              inputId="status2"
+              value="Doing"
+            />
+            <label for="status2"> Doing </label>
+          </div>
+          <div class="flex items-center gap-2">
+            <RadioButton
+              v-model="state.newTodoStatus"
+              inputId="status3"
+              value="Done"
+            />
+            <label for="status3"> Done </label>
+          </div>
+        </RadioButtonGroup>
       </div>
-      <div>
-        <RadioButton
-          v-model="state.newTodoStatus"
-          inputId="doing"
-          value="doing"
-        />
-        <label for="doing">Doing</label>
-      </div>
-      <div>
-        <RadioButton
-          v-model="state.newTodoStatus"
-          inputId="done"
-          value="done"
-        />
-        <label for="done"> Done</label>
-      </div>
-    </div>
-    <Button type="submit" label="Create" style="width: 100%"></Button>
-  </form>
+      <Message
+        v-if="$form.newTodoStatus?.invalid"
+        severity="error"
+        size="small"
+        variant="simple"
+        >{{ $form.newTodoStatus.error.message }}</Message
+      >
+      <Button type="submit" label="Create" icon="pi pi-plus-circle"></Button>
+    </Form>
+  </div>
 </template>
