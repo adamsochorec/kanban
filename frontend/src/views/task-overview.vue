@@ -151,10 +151,10 @@ onMounted(async () => {
     background-color: var(--p-rose-950);
   }
   &.doing {
-    background-color: var(--p-emerald-900);
+    background-color: var(--p-amber-900);
   }
   &.done {
-    background-color: var(--p-amber-900);
+    background-color: var(--p-emerald-900);
   }
 }
 </style>
