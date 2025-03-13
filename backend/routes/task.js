@@ -6,22 +6,25 @@ const { verifyToken } = require("../validation"); // Validation function to veri
 // CRUD operations
 
 // Create document - POST
-router.post("/", verifyToken, (req, res) => {
-  // Extract data from the request body
-  const data = req.body;
+router.post(
+  "/",
+  /* verifyToken, */ (req, res) => {
+    // Extract data from the request body
+    const data = req.body;
 
-  // Insert new document data into the database
-  // If the insertion is successful, return the inserted data with a 201 status code
-  // If there is an error, return the error message with a 500 status code
-  task
-    .insertMany(data)
-    .then((data) => {
-      res.status(201).send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({ message: err.message });
-    });
-});
+    // Insert new document data into the database
+    // If the insertion is successful, return the inserted data with a 201 status code
+    // If there is an error, return the error message with a 500 status code
+    task
+      .insertMany(data)
+      .then((data) => {
+        res.status(201).send(data);
+      })
+      .catch((err) => {
+        res.status(500).send({ message: err.message });
+      });
+  }
+);
 
 // Read all documents - GET
 router.get(
@@ -88,31 +91,34 @@ router.put(
 );
 
 // Delete specific document by ID - DELETE
-router.delete("/:id", verifyToken, (req, res) => {
-  const id = req.params.id;
+router.delete(
+  "/:id",
+  /* verifyToken, */ (req, res) => {
+    const id = req.params.id;
 
-  // Delete the document with the provided ID
-  // If the deletion is successful, return a success message
-  // If the document is not found, return a not found message with a 404 status code
-  // If there is an error, return the error message with a 500 status code
-  task
-    .findByIdAndDelete(id)
-    .then((data) => {
-      if (!data) {
-        res.status(404).send({
-          message: `Cannot update document ${id}, Maybe document was not found!`,
+    // Delete the document with the provided ID
+    // If the deletion is successful, return a success message
+    // If the document is not found, return a not found message with a 404 status code
+    // If there is an error, return the error message with a 500 status code
+    task
+      .findByIdAndDelete(id)
+      .then((data) => {
+        if (!data) {
+          res.status(404).send({
+            message: `Cannot update document ${id}, Maybe document was not found!`,
+          });
+        } else {
+          res.send({ message: "Document was successfully deleted." });
+        }
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message: `Error updating document ${id}`,
+          error: err,
         });
-      } else {
-        res.send({ message: "Document was successfully deleted." });
-      }
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: `Error updating document ${id}`,
-        error: err,
       });
-    });
-});
+  }
+);
 
 // Function to map an array of documents to a new format
 function mapArray(inputArray) {
