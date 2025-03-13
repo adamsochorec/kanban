@@ -8,14 +8,14 @@ const { type } = require("os");
 const Schema = mongoose.Schema;
 
 // Define the document schema with fields for task, description, status, and time
-let taskchema = new Schema({
-  task: { type: String },
+let taskSchema = new Schema({
+  name: { type: String },
   description: { type: String },
   status: { type: String },
-  time: { type: Number },
+  duration: { type: Number },
 });
 
 // Create a model named 'document' based on the defined schema
 // This model provides methods to query and update the 'document' collection in MongoDB
 // Export the model so it can be used in other parts of the application
-module.exports = mongoose.model("task", taskchema);
+module.exports = mongoose.model("task", taskSchema);
