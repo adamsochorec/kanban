@@ -1,16 +1,16 @@
 <script setup>
 import { ref, onMounted, reactive } from "vue";
-import todocrud from "@/modules/todocrud";
+import crud from "@/modules/crud";
 import { Form } from "@primevue/forms";
 import { useToast } from "primevue/usetoast";
 import { FormField } from "@primevue/forms";
 
-const { state, GetAllPizzas, newTask } = todocrud();
+const { state, getAllDocuments, newDocument } = crud();
 const toast = useToast();
 
 const submitForm = ({ valid }) => {
   if (valid) {
-    newTask();
+    newDocument();
     toast.add({
       severity: "success",
       summary: "Form is submitted.",
@@ -22,8 +22,8 @@ const submitForm = ({ valid }) => {
 const resolver = ({ values }) => {
   const errors = {};
 
-  if (!values.newTask) {
-    errors.newTask = [{ message: "Name is required." }];
+  if (!values.newDocument) {
+    errors.newDocument = [{ message: "Name is required." }];
   }
   if (!values.newTodoDescription) {
     errors.newTodoDescription = [{ message: "Description is required." }];
@@ -41,7 +41,7 @@ const resolver = ({ values }) => {
 };
 
 onMounted(() => {
-  GetAllPizzas();
+  getAllDocuments();
 });
 </script>
 
@@ -61,13 +61,13 @@ onMounted(() => {
       <h3>Create a task</h3>
       <FormField
         v-slot="$field"
-        name="newTask"
+        name="newDocument"
         initialValue=""
         class="flex flex-col gap-1"
       >
         <FloatLabel variant="in">
-          <InputText type="text" v-model="state.newTask" fluid />
-          <label for="newTask">Name</label>
+          <InputText type="text" v-model="state.newDocument" fluid />
+          <label for="newDocument">Name</label>
         </FloatLabel>
         <Message
           v-if="$field?.invalid"

@@ -1,13 +1,13 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import CreateTask from "@/components/create-task.vue";
-import todocrud from "@/modules/todocrud";
+import crud from "@/modules/crud";
 
-const { state, GetAllPizzas, deletePizza, editPizza } = todocrud();
+const { state, getAllDocuments, deleteDocument, editDocument } = crud();
 const isDataLoaded = ref(false);
 
 onMounted(async () => {
-  await GetAllPizzas();
+  await getAllDocuments();
   isDataLoaded.value = true;
 });
 </script>
@@ -48,7 +48,11 @@ onMounted(async () => {
           </template>
           <template #footer>
             <div style="display: flex; justify-content: space-between">
-              <Button @click="editPizza(pizza.id)" asChild v-slot="slotProps">
+              <Button
+                @click="editDocument(pizza.id)"
+                asChild
+                v-slot="slotProps"
+              >
                 <RouterLink
                   class="nolink"
                   :to="`/pizzas/${pizza.id}/edit`"
@@ -58,7 +62,7 @@ onMounted(async () => {
               </Button>
               <Button
                 label="Delete"
-                @click="deletePizza(pizza)"
+                @click="deleteDocument(pizza)"
                 icon="pi pi-trash"
               ></Button>
             </div>

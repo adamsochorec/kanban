@@ -11,16 +11,16 @@ const router = createRouter({
     },
 
     {
-      path: "/pizzas",
-      name: "pizzas",
+      path: "/tasks",
+      name: "tasks",
       component: () => import("@/views/task-overview.vue"),
       meta: {
         requiresAuth: true,
       },
     },
     {
-      path: "/pizzas/:id/edit",
-      name: "pizzas single",
+      path: "/tasks/:id/edit",
+      name: "task single",
       component: () => import("@/views/task.vue"),
       meta: {
         requiresAuth: true,

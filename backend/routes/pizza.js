@@ -1,18 +1,18 @@
 // Import necessary modules
 const router = require("express").Router(); // Express router to define the routes
-const pizza = require("../models/pizza"); // Pizza model to interact with the database
+const pizza = require("../models/task"); // Document model to interact with the database
 const { verifyToken } = require("../validation"); // Validation function to verify the token
 
 // CRUD operations
 
-// Create pizza - POST
+// Create document - POST
 router.post(
   "/",
   /* verifyToken,  */ (req, res) => {
     // Extract data from the request body
     const data = req.body;
 
-    // Insert new pizza data into the database
+    // Insert new document data into the database
     // If the insertion is successful, return the inserted data with a 201 status code
     // If there is an error, return the error message with a 500 status code
     pizza
@@ -26,11 +26,11 @@ router.post(
   }
 );
 
-// Read all pizzas - GET
+// Read all documents - GET
 router.get(
   "/",
   /* verifyToken,  */ (req, res) => {
-    // Retrieve all pizzas from the database
+    // Retrieve all document from the database
     // If the retrieval is successful, return the retrieved data
     // If there is an error, return the error message with a 500 status code
     pizza
@@ -44,11 +44,11 @@ router.get(
   }
 );
 
-// Read specific pizza by ID - GET
+// Read specific document by ID - GET
 router.get(
   "/:id",
   /* verifyToken,  */ (req, res) => {
-    // Retrieve a specific pizza by its ID
+    // Retrieve a specific document by its ID
     // If the retrieval is successful, return the retrieved data
     // If there is an error, return the error message with a 500 status code
     pizza
@@ -62,77 +62,71 @@ router.get(
   }
 );
 
-// Update specific pizza by ID - PUT
+// Update specific document by ID - PUT
 router.put(
   "/:id",
   /* verifyToken,  */ (req, res) => {
-    // Extract pizza ID from the request parameters
+    // Extract document ID from the request parameters
     const id = req.params.id;
 
-    // Update the pizza with the provided ID using the request body data
+    // Update the document with the provided ID using the request body data
     // If the update is successful, return a success message
-    // If the pizza is not found, return a not found message with a 404 status code
+    // If the document is not found, return a not found message with a 404 status code
     // If there is an error, return the error message with a 500 status code
     pizza
       .findByIdAndUpdate(id, req.body)
       .then((data) => {
         if (!data) {
           res.status(404).send({
-            message:
-              "Cannot update pizza with id=" +
-              id +
-              ". Maybe pizza was not found!",
+            message: `Cannot update document ${id}, Maybe pizza was not found!`,
           });
         } else {
-          res.send({ message: "Pizza was successfully updated." });
+          res.send({ message: "Document was successfully updated." });
         }
       })
       .catch((err) => {
-        res.status(500).send({ message: "Error updating pizza with id=" + id });
+        res.status(500).send({ message: `Error updating document ${id}` });
       });
   }
 );
 
-// Delete specific pizza by ID - DELETE
+// Delete specific document by ID - DELETE
 router.delete(
   "/:id",
   /* verifyToken,  */ (req, res) => {
     const id = req.params.id;
 
-    // Delete the pizza with the provided ID
+    // Delete the document with the provided ID
     // If the deletion is successful, return a success message
-    // If the pizza is not found, return a not found message with a 404 status code
+    // If the document is not found, return a not found message with a 404 status code
     // If there is an error, return the error message with a 500 status code
     pizza
       .findByIdAndDelete(id)
       .then((data) => {
         if (!data) {
           res.status(404).send({
-            message:
-              "Cannot delete pizza with id=" +
-              id +
-              ". Maybe pizza was not found!",
+            message: `Cannot update document ${id}, Maybe pizza was not found!`,
           });
         } else {
-          res.send({ message: "Pizza was successfully deleted." });
+          res.send({ message: "Document was successfully deleted." });
         }
       })
       .catch((err) => {
         res.status(500).send({
-          message: "Error deleting pizza with id=" + id,
+          message: `Error updating document ${id}`,
           error: err,
         });
       });
   }
 );
 
-// Function to map an array of pizzas to a new format
+// Function to map an array of documents to a new format
 function mapArray(inputArray) {
   let outputArray = inputArray.map((element) => mapData(element));
   return outputArray;
 }
 
-// Function to map a single pizza to a new format
+// Function to map a single document to a new format
 function mapData(element) {
   let outputObj = {
     id: element.id,

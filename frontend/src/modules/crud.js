@@ -1,15 +1,12 @@
 import { ref, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
-const getPizzas = () => {
+const getDocuments = () => {
   const route = useRoute();
   const router = useRouter();
-
-  const pizzaID = computed(() => route.params.id);
-  console.log("pizzaID: ", pizzaID.value);
-
+  const documentID = computed(() => route.params.id);
   const state = ref({
-    newTask: "",
+    newDocument: "",
     newTodoTime: "",
     newTodoDescription: "",
     newTodoStatus: "",
@@ -30,10 +27,7 @@ const getPizzas = () => {
           password: "12345678",
         }),
       };
-      await fetch(
-        "https://men-restful-api-bbe2.onrender.com/api/user/login",
-        requestOptions
-      )
+      await fetch("http://localhost:4000/user/login", requestOptions)
         .then((res) => res.json())
         .then((data) => {
           localStorage.setItem("lsToken", data.data.token);
@@ -46,22 +40,20 @@ const getPizzas = () => {
   };
 
   // Read all documents - GET
-  const GetAllPizzas = async () => {
+  const getAllDocuments = async () => {
     try {
-      const response = await fetch(
-        "https://men-restful-api-bbe2.onrender.com/api/pizzas/"
-      );
+      const response = await fetch("http://localhost:4000/tasks/");
       const data = await response.json();
       state.value.pizzas = data.reverse();
-      console.log(data);
     } catch (error) {
       console.error(error);
     }
   };
 
-  const newTask = async () => {
+  // Create new document - POST
+  const newDocument = async () => {
     if (
-      !state.value.newTask ||
+      !state.value.newDocument ||
       !state.value.newTodoDescription ||
       !state.value.newTodoTime ||
       !state.value.newTodoStatus
@@ -77,7 +69,7 @@ const getPizzas = () => {
           "auth-token": localStorage.lsToken,
         },
         body: JSON.stringify({
-          task: state.value.newTask,
+          task: state.value.newDocument,
           description: state.value.newTodoDescription,
           time: state.value.newTodoTime,
           status: state.value.newTodoStatus,
@@ -85,7 +77,7 @@ const getPizzas = () => {
       };
 
       const response = await fetch(
-        "https://men-restful-api-bbe2.onrender.com/api/pizzas/",
+        "http://localhost:4000/pizzas/",
         requestOptions
       );
 
@@ -97,7 +89,7 @@ const getPizzas = () => {
       state.value.pizzas.unshift(newPizza);
 
       // Clear the form fields
-      state.value.newTask = "";
+      state.value.newDocument = "";
       state.value.newTodoDescription = "";
       state.value.newTodoTime = "";
       state.value.newTodoStatus = "";
@@ -108,17 +100,15 @@ const getPizzas = () => {
 
   // Read specific document by ID - GET
   const pizza = ref({});
-  const GetSpecificPizza = async (pizzaID) => {
+  const getSpecificDocument = async (documentID) => {
     try {
-      console.log("Fetching pizza with ID:", pizzaID);
+      console.log("Fetching pizza with ID:", documentID);
 
-      const response = await fetch(
-        `https://men-restful-api-bbe2.onrender.com/api/pizzas/${pizzaID}`
-      );
+      const response = await fetch(`http://localhost:4000/tasks/${documentID}`);
 
       if (!response.ok) {
         throw new Error(
-          `Failed to fetch specific document with ID: ${pizzaID}`
+          `Failed to fetch specific document with ID: ${documentID}`
         );
       }
       const data = await response.json();
@@ -129,8 +119,8 @@ const getPizzas = () => {
   };
 
   // Delete specific document by ID - DELETE
-  const deletePizza = async (pizza) => {
-    console.log("delete id from vue: ", pizza.id);
+  const deleteDocument = async (pizza) => {
+    console.log("Deleting document: ", pizza.id);
     try {
       const requestOptions = {
         method: "DELETE",
@@ -140,7 +130,7 @@ const getPizzas = () => {
         },
       };
       const response = await fetch(
-        `https://men-restful-api-bbe2.onrender.com/api/pizzas/${pizza.id}`,
+        `http://localhost:4000/tasks/${pizza.id}`,
         requestOptions
       );
 
@@ -148,20 +138,20 @@ const getPizzas = () => {
         throw new Error("Failed to delete document");
       }
 
-      await GetAllPizzas();
+      await getAllDocuments();
     } catch (error) {
       console.log("Error deleting document:", error);
     }
   };
 
   // Edit specific document by ID - PUT
-  const editPizza = async () => {
+  const editDocument = async () => {
     try {
-      if (!pizzaID.value) {
+      if (!documentID.value) {
         throw new Error("No document ID provided");
       }
       if (
-        !state.value.newTask ||
+        !state.value.newDocument ||
         !state.value.newTodoDescription ||
         !state.value.newTodoTime ||
         !state.value.newTodoStatus
@@ -177,21 +167,20 @@ const getPizzas = () => {
           "auth-token": localStorage.lsToken,
         },
         body: JSON.stringify({
-          task: state.value.newTask,
+          task: state.value.newDocument,
           description: state.value.newTodoDescription,
           time: state.value.newTodoTime,
           status: state.value.newTodoStatus,
         }),
       };
 
-      const url =
-        "https://men-restful-api-bbe2.onrender.com/api/pizzas/" + pizzaID.value;
+      const url = `http://localhost:4000/tasks/${documentID.value}`;
       const response = await fetch(url, requestOptions);
 
       if (!response.ok) {
         throw new Error("Failed to edit document");
       }
-      router.push("/pizzas");
+      router.push("/tasks");
     } catch (error) {
       console.log("Error editing document:", error);
     }
@@ -199,15 +188,15 @@ const getPizzas = () => {
 
   return {
     state,
-    GetAllPizzas,
-    newTask,
-    deletePizza,
-    GetSpecificPizza,
+    getAllDocuments,
+    newDocument,
+    deleteDocument,
+    getSpecificDocument,
     pizza,
-    pizzaID,
-    editPizza,
+    documentID,
+    editDocument,
     swaggerLogin,
   };
 };
 
-export default getPizzas;
+export default getDocuments;
