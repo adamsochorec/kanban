@@ -2,35 +2,14 @@
 import { ref, onMounted } from "vue";
 import CreateTask from "@/components/create-task.vue";
 import crud from "@/modules/crud";
-import { useToast } from "primevue/usetoast";
 
 const { state, getAllTasks, deleteTask, editTask } = crud();
 const isDataLoaded = ref(false);
-const toast = useToast();
 
 onMounted(async () => {
   await getAllTasks();
   isDataLoaded.value = true;
 });
-
-const handleDeleteTask = async (task) => {
-  try {
-    await deleteTask(task.id);
-    toast.add({
-      severity: "success",
-      summary: "Task Deleted",
-      detail: "Task was successfully deleted.",
-      life: 3000,
-    });
-  } catch (error) {
-    toast.add({
-      severity: "error",
-      summary: "Error",
-      detail: "Failed to delete task.",
-      life: 3000,
-    });
-  }
-};
 </script>
 
 <template>
@@ -79,7 +58,7 @@ const handleDeleteTask = async (task) => {
               </Button>
               <Button
                 label="Delete"
-                @click="handleDeleteTask(task)"
+                @click="deleteTask(task)"
                 icon="pi pi-trash"
               ></Button>
             </div>
