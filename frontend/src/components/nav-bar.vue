@@ -9,7 +9,7 @@ const auth = useAuth();
   <nav style="display: flex; gap: 1rem">
     <Button variant="link" asChild v-slot="slotProps">
       <router-link
-        to="/pizzas"
+        to="/tasks"
         :class="slotProps.class"
         style="text-decoration: underline; cursor: pointer"
         >Tasks</router-link

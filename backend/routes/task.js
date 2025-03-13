@@ -1,6 +1,6 @@
 // Import necessary modules
 const router = require("express").Router(); // Express router to define the routes
-const pizza = require("../models/task"); // Document model to interact with the database
+const task = require("../models/task"); // Document model to interact with the database
 const { verifyToken } = require("../validation"); // Validation function to verify the token
 
 // CRUD operations
@@ -15,7 +15,7 @@ router.post(
     // Insert new document data into the database
     // If the insertion is successful, return the inserted data with a 201 status code
     // If there is an error, return the error message with a 500 status code
-    pizza
+    task
       .insertMany(data)
       .then((data) => {
         res.status(201).send(data);
@@ -33,7 +33,7 @@ router.get(
     // Retrieve all document from the database
     // If the retrieval is successful, return the retrieved data
     // If there is an error, return the error message with a 500 status code
-    pizza
+    task
       .find()
       .then((data) => {
         res.send(mapArray(data));
@@ -51,7 +51,7 @@ router.get(
     // Retrieve a specific document by its ID
     // If the retrieval is successful, return the retrieved data
     // If there is an error, return the error message with a 500 status code
-    pizza
+    task
       .findById(req.params.id)
       .then((data) => {
         res.send(data);
@@ -73,12 +73,12 @@ router.put(
     // If the update is successful, return a success message
     // If the document is not found, return a not found message with a 404 status code
     // If there is an error, return the error message with a 500 status code
-    pizza
+    task
       .findByIdAndUpdate(id, req.body)
       .then((data) => {
         if (!data) {
           res.status(404).send({
-            message: `Cannot update document ${id}, Maybe pizza was not found!`,
+            message: `Cannot update document ${id}, Maybe document was not found!`,
           });
         } else {
           res.send({ message: "Document was successfully updated." });
@@ -100,7 +100,7 @@ router.delete(
     // If the deletion is successful, return a success message
     // If the document is not found, return a not found message with a 404 status code
     // If there is an error, return the error message with a 500 status code
-    pizza
+    task
       .findByIdAndDelete(id)
       .then((data) => {
         if (!data) {

@@ -44,8 +44,8 @@ app.use(bodyParser.json());
 const swaggerDefinition = yaml.load("./swagger.yaml");
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDefinition));
 
-// Import routes for pizzas and authentication
-const pizzaRoutes = require("./routes/task");
+// Import routes
+const taskRoutes = require("./routes/task");
 const authRoutes = require("./routes/auth");
 
 // Load environment variables (again, for good measure)
@@ -74,10 +74,7 @@ app.get("/", (req, res) => {
   res.status(200).send({ message: "Welcome to the MEN RESTFUL API" });
 });
 
-// Define routes for CRUD operations on pizzas
-app.use("/pizzas", pizzaRoutes);
-
-// Define routes for user authentication
+app.use("/tasks", taskRoutes);
 app.use("/user", authRoutes);
 
 // Define the port number the server will listen on
