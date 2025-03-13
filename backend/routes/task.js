@@ -130,10 +130,10 @@ function mapArray(inputArray) {
 function mapData(element) {
   let outputObj = {
     id: element.id,
-    task: element.task,
+    name: element.name,
     description: element.description,
     status: element.status,
-    time: element.time,
+    duration: element.duration,
   };
   return outputObj;
 }
