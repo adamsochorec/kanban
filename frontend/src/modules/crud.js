@@ -46,7 +46,7 @@ const getDocuments = () => {
   const getAllDocuments = async () => {
     try {
       const response = await fetch(
-        "https://men-restful-api-bbe2.onrender.com/pizzas/"
+        "https://men-restful-api-bbe2.onrender.com/tasks/"
       );
       const data = await response.json();
       state.value.pizzas = data.reverse();
@@ -82,7 +82,7 @@ const getDocuments = () => {
       };
 
       const response = await fetch(
-        "https://men-restful-api-bbe2.onrender.com/pizzas/",
+        "https://men-restful-api-bbe2.onrender.com/tasks/",
         requestOptions
       );
 
@@ -110,7 +110,7 @@ const getDocuments = () => {
       console.log("Fetching pizza with ID:", documentID);
 
       const response = await fetch(
-        `https://men-restful-api-bbe2.onrender.com/pizzas/${documentID}`
+        `https://men-restful-api-bbe2.onrender.com/tasks/${documentID}`
       );
 
       if (!response.ok) {
@@ -137,7 +137,7 @@ const getDocuments = () => {
         },
       };
       const response = await fetch(
-        `https://men-restful-api-bbe2.onrender.com/pizzas/${pizza.id}`,
+        `https://men-restful-api-bbe2.onrender.com/tasks/${pizza.id}`,
         requestOptions
       );
 
@@ -181,13 +181,13 @@ const getDocuments = () => {
         }),
       };
 
-      const url = `https://men-restful-api-bbe2.onrender.com/pizzas/${documentID.value}`;
+      const url = `https://men-restful-api-bbe2.onrender.com/tasks/${documentID.value}`;
       const response = await fetch(url, requestOptions);
 
       if (!response.ok) {
         throw new Error("Failed to edit document");
       }
-      router.push("/pizzas");
+      router.push("/tasks");
     } catch (error) {
       console.log("Error editing document:", error);
     }
