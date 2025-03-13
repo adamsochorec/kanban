@@ -6,7 +6,7 @@ Developed by [Adam Sochorec](https://www.linkedin.com/in/adamsochorec) during st
 
 ## Why?
 
-This project was created to demonstrate REST API functionality, where a user interface dynamically interacts with a database by creating and managing data templates via API calls. The assignment was to build a simple Kanban app, similar to Trello, for task insertion and organization.
+This project was created to demonstrate REST API functionality and DevOps practices, ensuring a dynamic interaction between the user interface and the database. The goal was to implement automated testing and deployment alongside a structured frontend and backend.
 
 ## When?
 
@@ -14,12 +14,23 @@ Developed in 2024 as a school project.
 
 ## What?
 
-A Kanban board application that allows users to create, organize, and manage tasks dynamically. The goal was to implement a REST API with a structured frontend while following best practices for modern web development.
+A simple Kanban board application that allows users to create, organize, and manage tasks dynamically. The project features:
+
+- REST API for task management.
+- Automated testing with Mocha.js.
+- CI/CD pipeline using GitHub Actions.
+- Auto-generated API documentation with Swagger Autogen.
 
 ## How?
 
-- **Backend:** Built with Node.js using Express.js and MongoDB. Testing is implemented with Mocha.js.
-- **Frontend:** Developed in Vue.js, built with Vite, and styled using the [PrimeVue](https://www.primevue.org) component library.
+### Backend:
+- Built with Node.js, Express.js, and MongoDB.
+- **Automated Testing:** Mocha.js tests are run on every push or pull request.
+- **Continuous Deployment:** If tests pass, GitHub Actions triggers a deployment to Render.
+- API Documentation: Automatically re-generated on every run.
+
+### Frontend: 
+- Developed in Vue.js, built with Vite, and styled using the [PrimeVue](https://www.primevue.org) component library.
 
 ## Documentation
 
@@ -39,5 +50,11 @@ npm run build ## Type-Check, Compile and Minify for Production
 ```sh
 cd backend
 npm install ## Install Node
-npm run start-dev ## Compile and Hot-Reload for Development
+npm run start-dev ## Compile and Hot-Reload for Development and generate API docs
+```
+## API testing
+
+```sh
+cd backend
+npm test ## trigger Mocha tests 
 ```
