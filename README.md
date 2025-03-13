@@ -1,5 +1,5 @@
 # Kanban
-
+[![Node.JS CI/CD](https://github.com/adamsochorec/kanban/actions/workflows/main.yml/badge.svg)](https://github.com/adamsochorec/kanban/actions/workflows/main.yml)
 ## Who?
 
 Developed by [Adam Sochorec](https://www.linkedin.com/in/adamsochorec) during studies at [EASV](https://www.easv.dk), as a project utilizing REST API classes and progressive web applications.
