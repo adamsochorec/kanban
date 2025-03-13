@@ -22,18 +22,18 @@ const submitForm = ({ valid }) => {
 const resolver = ({ values }) => {
   const errors = {};
 
-  if (!values.newDocument) {
-    errors.newDocument = [{ message: "Name is required." }];
+  if (!values.newName) {
+    errors.newName = [{ message: "Name is required." }];
   }
-  if (!values.newTodoDescription) {
-    errors.newTodoDescription = [{ message: "Description is required." }];
+  if (!values.newDescription) {
+    errors.newDescription = [{ message: "Description is required." }];
   }
 
-  if (!values.newTodoTime) {
-    errors.newTodoTime = [{ message: "Duration is required." }];
+  if (!values.newDuration) {
+    errors.newDuration = [{ message: "Duration is required." }];
   }
-  if (!values.newTodoStatus) {
-    errors.newTodoStatus = [{ message: "Status is required." }];
+  if (!values.newStatus) {
+    errors.newStatus = [{ message: "Status is required." }];
   }
   return {
     errors,
@@ -61,13 +61,13 @@ onMounted(() => {
       <h3>Create a task</h3>
       <FormField
         v-slot="$field"
-        name="newDocument"
+        name="newName"
         initialValue=""
         class="flex flex-col gap-1"
       >
         <FloatLabel variant="in">
-          <InputText type="text" v-model="state.newDocument" fluid />
-          <label for="newDocument">Name</label>
+          <InputText type="text" v-model="state.newName" fluid />
+          <label for="newName">Name</label>
         </FloatLabel>
         <Message
           v-if="$field?.invalid"
@@ -80,18 +80,18 @@ onMounted(() => {
       <FormField
         v-slot="$field"
         initialValue=""
-        name="newTodoTime"
+        name="newDuration"
         class="flex flex-col gap-1"
       >
         <FloatLabel variant="in">
           <InputNumber
             type="number"
-            v-model="state.newTodoTime"
+            v-model="state.newDuration"
             fluid
             :useGrouping="false"
             suffix=" hours"
           />
-          <label for="newTodoTime">Duration</label>
+          <label for="newDuration">Duration</label>
         </FloatLabel>
         <Message
           v-if="$field?.invalid"
@@ -104,12 +104,12 @@ onMounted(() => {
       <FormField
         v-slot="$field"
         initialValue=""
-        name="newTodoDescription"
+        name="newDescription"
         class="flex flex-col gap-1"
       >
         <FloatLabel variant="in">
-          <Textarea type="text" fluid v-model="state.newTodoDescription" />
-          <label for="newTodoDescription">Description</label>
+          <Textarea type="text" fluid v-model="state.newDescription" />
+          <label for="newDescription">Description</label>
         </FloatLabel>
         <Message
           v-if="$field?.invalid"
@@ -122,14 +122,14 @@ onMounted(() => {
 
       <div class="card flex flex-wrap justify-center gap-4">
         <RadioButtonGroup
-          name="newTodoStatus"
-          v-model="state.newTodoStatus"
+          name="newStatus"
+          v-model="state.newStatus"
           :formControl="{ validateOnValueUpdate: true }"
           class="card flex flex-wrap justify-center gap-4"
         >
           <div class="flex items-center gap-2">
             <RadioButton
-              v-model="state.newTodoStatus"
+              v-model="state.newStatus"
               inputId="status1"
               value="Waiting"
             />
@@ -137,7 +137,7 @@ onMounted(() => {
           </div>
           <div class="flex items-center gap-2">
             <RadioButton
-              v-model="state.newTodoStatus"
+              v-model="state.newStatus"
               inputId="status2"
               value="Doing"
             />
@@ -145,7 +145,7 @@ onMounted(() => {
           </div>
           <div class="flex items-center gap-2">
             <RadioButton
-              v-model="state.newTodoStatus"
+              v-model="state.newStatus"
               inputId="status3"
               value="Done"
             />
@@ -154,11 +154,11 @@ onMounted(() => {
         </RadioButtonGroup>
       </div>
       <Message
-        v-if="$form.newTodoStatus?.invalid"
+        v-if="$form.newStatus?.invalid"
         severity="error"
         size="small"
         variant="simple"
-        >{{ $form.newTodoStatus.error.message }}</Message
+        >{{ $form.newStatus.error.message }}</Message
       >
       <Button type="submit" label="Create" icon="pi pi-plus-circle"></Button>
     </Form>

@@ -6,11 +6,11 @@ const getDocuments = () => {
   const router = useRouter();
   const documentID = computed(() => route.params.id);
   const state = ref({
-    newDocument: "",
-    newTodoTime: "",
-    newTodoDescription: "",
-    newTodoStatus: "",
-    pizzas: [],
+    newName: "",
+    newDuration: "",
+    newDescription: "",
+    newStatus: "",
+    tasks: [],
   });
 
   // Docs login
@@ -49,7 +49,7 @@ const getDocuments = () => {
         "https://men-restful-api-bbe2.onrender.com/tasks/"
       );
       const data = await response.json();
-      state.value.pizzas = data.reverse();
+      state.value.tasks = data.reverse();
     } catch (error) {
       console.error(error);
     }
@@ -58,10 +58,10 @@ const getDocuments = () => {
   // Create new document - POST
   const newDocument = async () => {
     if (
-      !state.value.newDocument ||
-      !state.value.newTodoDescription ||
-      !state.value.newTodoTime ||
-      !state.value.newTodoStatus
+      !state.value.newName ||
+      !state.value.newDescription ||
+      !state.value.newDuration ||
+      !state.value.newStatus
     ) {
       console.error("All fields must be filled out");
       return;
@@ -74,10 +74,10 @@ const getDocuments = () => {
           "auth-token": localStorage.lsToken,
         },
         body: JSON.stringify({
-          task: state.value.newDocument,
-          description: state.value.newTodoDescription,
-          time: state.value.newTodoTime,
-          status: state.value.newTodoStatus,
+          name: state.value.newName,
+          description: state.value.newDescription,
+          duration: state.value.newDuration,
+          status: state.value.newStatus,
         }),
       };
 
@@ -91,13 +91,13 @@ const getDocuments = () => {
       }
 
       const newPizza = await response.json();
-      state.value.pizzas.unshift(newPizza);
+      state.value.tasks.unshift(newPizza);
 
       // Clear the form fields
-      state.value.newDocument = "";
-      state.value.newTodoDescription = "";
-      state.value.newTodoTime = "";
-      state.value.newTodoStatus = "";
+      state.value.newName = "";
+      state.value.newDescription = "";
+      state.value.newDuration = "";
+      state.value.newStatus = "";
     } catch (error) {
       console.error("Error adding new document:", error);
     }
@@ -119,6 +119,7 @@ const getDocuments = () => {
         );
       }
       const data = await response.json();
+      console.log(data);
       pizza.value = data;
     } catch (error) {
       console.error(error);
@@ -158,12 +159,11 @@ const getDocuments = () => {
         throw new Error("No document ID provided");
       }
       if (
-        !state.value.newDocument ||
-        !state.value.newTodoDescription ||
-        !state.value.newTodoTime ||
-        !state.value.newTodoStatus
+        !state.value.newName ||
+        !state.value.newDescription ||
+        !state.value.newDuration ||
+        !state.value.newStatus
       ) {
-        console.error("All fields must be filled out");
         return;
       }
 
@@ -174,10 +174,10 @@ const getDocuments = () => {
           "auth-token": localStorage.lsToken,
         },
         body: JSON.stringify({
-          task: state.value.newDocument,
-          description: state.value.newTodoDescription,
-          time: state.value.newTodoTime,
-          status: state.value.newTodoStatus,
+          name: state.value.newName,
+          description: state.value.newDescription,
+          duration: state.value.newDuration,
+          status: state.value.newStatus,
         }),
       };
 

@@ -8,36 +8,39 @@ import { FormField } from "@primevue/forms";
 const { editDocument, state, getSpecificDocument, pizza, documentID } = crud();
 const toast = useToast();
 const initialValues = ref({
-  newDocument: "",
-  newTodoDescription: "",
-  newTodoTime: "",
-  newTodoStatus: "",
+  newName: "",
+  newDescription: "",
+  newDuration: "",
+  newStatus: "",
 });
 
 const isDataLoaded = ref(false);
 
 onMounted(async () => {
   await getSpecificDocument(documentID.value);
-  state.newTodoStatus = pizza.status;
+  state.newName = pizza.value.name;
+  state.newDuration = pizza.value.duration;
+  state.newDescription = pizza.value.description;
+  state.newStatus = pizza.value.status;
   isDataLoaded.value = true;
 });
 
 const resolver = ({ values }) => {
   const errors = {};
 
-  if (!values.newDocument) {
-    errors.newDocument = [{ message: "Name is required." }];
+  if (!values.newName) {
+    errors.newName = [{ message: "Name is required." }];
   }
 
-  if (!values.newTodoDescription) {
-    errors.newTodoDescription = [{ message: "Description is required." }];
+  if (!values.newDescription) {
+    errors.newDescription = [{ message: "Description is required." }];
   }
 
-  if (!values.newTodoTime) {
-    errors.newTodoTime = [{ message: "Duration is required." }];
+  if (!values.newDuration) {
+    errors.newDuration = [{ message: "Duration is required." }];
   }
-  if (!values.newTodoStatus) {
-    errors.newTodoStatus = [{ message: "Status is required." }];
+  if (!values.newStatus) {
+    errors.newStatus = [{ message: "Status is required." }];
   }
 
   return {
@@ -73,13 +76,13 @@ const submitForm = ({ valid }) => {
       <h1 class="mb-4">Edit</h1>
       <FormField
         v-slot="$field"
-        name="newDocument"
-        :initialValue="pizza.task"
+        name="newName"
+        :initialValue="pizza.name"
         class="flex flex-col gap-1"
       >
         <FloatLabel variant="in">
-          <InputText type="text" v-model="state.newDocument" fluid />
-          <label for="newDocument">Name</label>
+          <InputText type="text" v-model="state.newName" fluid />
+          <label for="newName">Name</label>
         </FloatLabel>
         <Message
           v-if="$field?.invalid"
@@ -91,19 +94,19 @@ const submitForm = ({ valid }) => {
       </FormField>
       <FormField
         v-slot="$field"
-        :initialValue="pizza.time"
-        name="newTodoTime"
+        :initialValue="pizza.duration"
+        name="newDuration"
         class="flex flex-col gap-1"
       >
         <FloatLabel variant="in">
           <InputNumber
             type="number"
-            v-model="state.newTodoTime"
+            v-model="state.newDuration"
             fluid
             :useGrouping="false"
             suffix=" hours"
           />
-          <label for="newTodoTime">Duration</label>
+          <label for="newDuration">Duration</label>
         </FloatLabel>
         <Message
           v-if="$field?.invalid"
@@ -116,12 +119,12 @@ const submitForm = ({ valid }) => {
       <FormField
         v-slot="$field"
         :initialValue="pizza.description"
-        name="newTodoDescription"
+        name="newDescription"
         class="flex flex-col gap-1"
       >
         <FloatLabel variant="in">
-          <Textarea type="text" fluid v-model="state.newTodoDescription" />
-          <label for="newTodoDescription">Description</label>
+          <Textarea type="text" fluid v-model="state.newDescription" />
+          <label for="newDescription">Description</label>
         </FloatLabel>
         <Message
           v-if="$field?.invalid"
@@ -134,15 +137,15 @@ const submitForm = ({ valid }) => {
 
       <div class="card flex flex-wrap justify-center gap-4">
         <RadioButtonGroup
-          name="newTodoStatus"
-          v-model="state.newTodoStatus"
+          name="newStatus"
+          v-model="state.newStatus"
           :initialValue="pizza.status"
           :formControl="{ validateOnValueUpdate: true }"
           class="card flex flex-wrap justify-center gap-4"
         >
           <div class="flex items-center gap-2">
             <RadioButton
-              v-model="state.newTodoStatus"
+              v-model="state.newStatus"
               inputId="status1"
               value="Waiting"
             />
@@ -150,7 +153,7 @@ const submitForm = ({ valid }) => {
           </div>
           <div class="flex items-center gap-2">
             <RadioButton
-              v-model="state.newTodoStatus"
+              v-model="state.newStatus"
               inputId="status2"
               value="Doing"
             />
@@ -158,7 +161,7 @@ const submitForm = ({ valid }) => {
           </div>
           <div class="flex items-center gap-2">
             <RadioButton
-              v-model="state.newTodoStatus"
+              v-model="state.newStatus"
               inputId="status3"
               value="Done"
             />
@@ -167,11 +170,11 @@ const submitForm = ({ valid }) => {
         </RadioButtonGroup>
       </div>
       <Message
-        v-if="$form.newTodoStatus?.invalid"
+        v-if="$form.newStatus?.invalid"
         severity="error"
         size="small"
         variant="simple"
-        >{{ $form.newTodoStatus.error.message }}</Message
+        >{{ $form.newStatus.error.message }}</Message
       >
       <div class="card flex justify-center">
         <ButtonGroup>

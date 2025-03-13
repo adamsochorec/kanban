@@ -31,38 +31,34 @@ onMounted(async () => {
         v-if="isDataLoaded"
       >
         <Card
-          v-for="pizza in state.pizzas"
-          :key="pizza._id"
+          v-for="task in state.tasks"
+          :key="task._id"
           :class="{
-            'pizza-item': true,
-            waiting: pizza.status === 'Waiting',
-            doing: pizza.status === 'Doing',
-            done: pizza.status === 'Done',
+            card: true,
+            waiting: task.status === 'Waiting',
+            doing: task.status === 'Doing',
+            done: task.status === 'Done',
           }"
         >
-          <template #title> {{ pizza.task }}</template>
+          <template #title> {{ task.name }}</template>
           <template #content>
-            <u>Duration</u>: {{ pizza.time }} h<br />
-            <u>Status</u>: {{ pizza.status }}<br />
-            <u>Description</u>: {{ pizza.description }}
+            <u>Duration</u>: {{ task.duration }} h<br />
+            <u>Status</u>: {{ task.status }}<br />
+            <u>Description</u>: {{ task.description }}
           </template>
           <template #footer>
             <div style="display: flex; justify-content: space-between">
-              <Button
-                @click="editDocument(pizza.id)"
-                asChild
-                v-slot="slotProps"
-              >
+              <Button @click="editDocument(task.id)" asChild v-slot="slotProps">
                 <RouterLink
                   class="nolink"
-                  :to="`/pizzas/${pizza.id}/edit`"
+                  :to="`/tasks/${task.id}/edit`"
                   :class="slotProps.class"
                   ><i class="pi pi-pencil"></i>Edit</RouterLink
                 >
               </Button>
               <Button
                 label="Delete"
-                @click="deleteDocument(pizza)"
+                @click="deleteDocument(task)"
                 icon="pi pi-trash"
               ></Button>
             </div>
@@ -150,7 +146,7 @@ onMounted(async () => {
   </div>
 </template>
 <style scoped>
-.pizza-item {
+.card {
   &.waiting {
     background-color: var(--p-rose-950);
   }
