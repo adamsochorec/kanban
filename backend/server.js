@@ -1,19 +1,12 @@
-// Import the Express framework for creating web servers
 const express = require("express");
-// Import Mongoose for MongoDB object modeling
 const mongoose = require("mongoose");
-// Import body-parser to parse incoming request bodies
 const bodyParser = require("body-parser");
-// Initialize an Express application
 const app = express();
-// Import a custom token verification middleware function
 const { verifyToken } = require("./validation");
-
-// Swagger dependencies for API documentation
 const swaggerUi = require("swagger-ui-express");
-const yaml = require("yamljs");
-// Import CORS to enable Cross-Origin Resource Sharing
 const cors = require("cors");
+const fs = require("fs");
+const path = require("path");
 
 // Load environment variables from .env files using dotenv-flow
 require("dotenv-flow").config();
@@ -40,9 +33,18 @@ app.use(function (req, res, next) {
 // Middleware to parse JSON request bodies
 app.use(bodyParser.json());
 
-// Setup Swagger documentation
-const swaggerDefinition = yaml.load("./swagger.yaml");
-app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDefinition));
+// Load and serve Swagger documentation
+const swaggerOptions = {
+  customCss: ".swagger-ui .topbar { display: none !important; }",
+};
+const swaggerDefinition = JSON.parse(
+  fs.readFileSync(path.join(__dirname, "swagger.json"), "utf8")
+);
+app.use(
+  "/docs",
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerDefinition, swaggerOptions)
+);
 
 // Import routes
 const taskRoutes = require("./routes/task");

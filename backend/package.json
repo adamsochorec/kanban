@@ -4,8 +4,9 @@
   "description": "MongoDB-ExpressJS-NodeJS Restful API",
   "main": "server.js",
   "scripts": {
-    "start-dev": "cross-env NODE_ENV=development nodemon server.js",
-    "test": "cross-env NODE_ENV=test mocha --recursive --exit"
+    "start-dev": "npm run start-gendoc && cross-env NODE_ENV=development nodemon server.js",
+    "test": "cross-env NODE_ENV=test mocha --recursive --exit",
+    "start-gendoc": "node swagger.js"
   },
   "repository": {
     "type": "git",
