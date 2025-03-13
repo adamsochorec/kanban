@@ -16,21 +16,21 @@ Developed in 2024 as a school project.
 
 A simple Kanban board application that allows users to create, organize, and manage tasks dynamically. The project features:
 
-- REST API for task management.
-- Automated testing with Mocha.js.
-- CI/CD pipeline using GitHub Actions.
-- Auto-generated API documentation with Swagger Autogen.
+- REST API for task management and users
+- Automated testing with Mocha.js
+- CI/CD pipeline using GitHub Actions
+- Auto-generated API documentation with Swagger Autogen
 
 ## How?
 
 ### Backend:
-- Built with Node.js, Express.js, and MongoDB.
-- **Automated Testing:** Mocha.js tests are run on every push or pull request.
-- **Continuous Deployment:** If tests pass, GitHub Actions triggers a deployment to Render.
-- API Documentation: Automatically re-generated on every run.
+- Built with Node.js, Express.js, and MongoDB
+- **Automated Testing:** Mocha.js tests are run on every push or pull request
+- **Continuous Deployment:** If tests pass, GitHub Actions triggers a deployment to Render
+- API Documentation: Automatically re-generated on every run
 
 ### Frontend: 
-- Developed in Vue.js, built with Vite, and styled using the [PrimeVue](https://www.primevue.org) component library.
+- Developed in Vue.js, built with Vite, and styled using the [PrimeVue](https://www.primevue.org) component library
 
 ## Documentation
 
