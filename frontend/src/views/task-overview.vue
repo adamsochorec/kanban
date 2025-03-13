@@ -53,11 +53,11 @@ onMounted(async () => {
                   class="nolink"
                   :to="`/pizzas/${pizza.id}/edit`"
                   :class="slotProps.class"
-                  ><i class="pi pi-pencil"></i
-                ></RouterLink>
+                  ><i class="pi pi-pencil"></i>Edit</RouterLink
+                >
               </Button>
               <Button
-                severity="danger"
+                label="Delete"
                 @click="deletePizza(pizza)"
                 icon="pi pi-trash"
               ></Button>

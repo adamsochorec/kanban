@@ -1,12 +1,11 @@
 <script setup>
-import { ref, onMounted, reactive } from "vue";
+import { ref, onMounted } from "vue";
 import todocrud from "../modules/todocrud";
 import { Form } from "@primevue/forms";
 import { useToast } from "primevue/usetoast";
 import { FormField } from "@primevue/forms";
 
-const { editPizza, state, GetSpecificPizza, deletePizza, pizza, pizzaID } =
-  todocrud();
+const { editPizza, state, GetSpecificPizza, pizza, pizzaID } = todocrud();
 const toast = useToast();
 const initialValues = ref({
   newTask: "",
@@ -15,14 +14,13 @@ const initialValues = ref({
   newTodoStatus: "",
 });
 
-onMounted(() => {
-  GetSpecificPizza(pizzaID.value);
-});
+const isDataLoaded = ref(false);
 
-const handleDelete = () => {
-  deletePizza(pizza);
-  $router.go(-1);
-};
+onMounted(async () => {
+  await GetSpecificPizza(pizzaID.value);
+  state.newTodoStatus = pizza.status;
+  isDataLoaded.value = true;
+});
 
 const resolver = ({ values }) => {
   const errors = {};
@@ -70,8 +68,9 @@ const submitForm = ({ valid }) => {
       :validateOnValueUpdate="false"
       :validateOnBlur="true"
       class="totodetail flex flex-col gap-4 w-full sm:w-70"
+      v-if="isDataLoaded"
     >
-      <h1>Edit</h1>
+      <h1 class="mb-4">Edit</h1>
       <FormField
         v-slot="$field"
         name="newTask"
@@ -137,6 +136,7 @@ const submitForm = ({ valid }) => {
         <RadioButtonGroup
           name="newTodoStatus"
           v-model="state.newTodoStatus"
+          :initialValue="pizza.status"
           :formControl="{ validateOnValueUpdate: true }"
           class="card flex flex-wrap justify-center gap-4"
         >
@@ -176,11 +176,7 @@ const submitForm = ({ valid }) => {
       <div class="card flex justify-center">
         <ButtonGroup>
           <Button type="submit" label="Save" icon="pi pi-check"> </Button>
-          <Button
-            label="Delete"
-            @click="handleDelete()"
-            icon="pi pi-trash"
-          ></Button>
+
           <Button
             label="Cancel"
             icon="pi pi-times"
@@ -189,6 +185,48 @@ const submitForm = ({ valid }) => {
         ></ButtonGroup>
       </div>
     </Form>
+    <div v-else class="flex flex-col gap-4 w-full sm:w-70">
+      <h1 class="mb-4">Edit</h1>
+
+      <Skeleton
+        width="100%"
+        height="2.5rem"
+        style="margin-bottom: var(--grid-gap-1)"
+      ></Skeleton>
+      <Skeleton
+        width="100%"
+        height="2.5rem"
+        style="margin-bottom: var(--grid-gap-1)"
+      ></Skeleton>
+      <Skeleton
+        width="100%"
+        height="5rem"
+        style="margin-bottom: var(--grid-gap-1)"
+      ></Skeleton>
+      <div
+        style="
+          display: flex;
+          justify-content: space-around;
+          margin-bottom: var(--grid-gap-1);
+        "
+      >
+        <Skeleton shape="circle" size="2rem"></Skeleton>
+        <Skeleton shape="circle" size="2rem"></Skeleton>
+        <Skeleton shape="circle" size="2rem"></Skeleton>
+      </div>
+      <div style="display: flex; justify-content: space-between">
+        <Skeleton
+          width="40%"
+          height="2rem"
+          style="margin-bottom: var(--grid-gap-1)"
+        ></Skeleton>
+        <Skeleton
+          width="40%"
+          height="2rem"
+          style="margin-bottom: var(--grid-gap-1)"
+        ></Skeleton>
+      </div>
+    </div>
   </div>
 </template>
 

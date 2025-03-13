@@ -16,6 +16,7 @@ const getPizzas = () => {
     pizzas: [],
   });
 
+  // Docs login
   const swaggerLogin = async () => {
     try {
       const requestOptions = {
@@ -44,6 +45,7 @@ const getPizzas = () => {
     }
   };
 
+  // Read all documents - GET
   const GetAllPizzas = async () => {
     try {
       const response = await fetch(
@@ -88,15 +90,45 @@ const getPizzas = () => {
       );
 
       if (!response.ok) {
-        throw new Error("Failed to add new pizza");
+        throw new Error("Failed to add new document");
       }
 
-      await GetAllPizzas();
+      const newPizza = await response.json();
+      state.value.pizzas.unshift(newPizza);
+
+      // Clear the form fields
+      state.value.newTask = "";
+      state.value.newTodoDescription = "";
+      state.value.newTodoTime = "";
+      state.value.newTodoStatus = "";
     } catch (error) {
-      console.error("Error adding new pizzas:", error);
+      console.error("Error adding new document:", error);
     }
   };
 
+  // Read specific document by ID - GET
+  const pizza = ref({});
+  const GetSpecificPizza = async (pizzaID) => {
+    try {
+      console.log("Fetching pizza with ID:", pizzaID);
+
+      const response = await fetch(
+        `https://men-restful-api-bbe2.onrender.com/api/pizzas/${pizzaID}`
+      );
+
+      if (!response.ok) {
+        throw new Error(
+          `Failed to fetch specific document with ID: ${pizzaID}`
+        );
+      }
+      const data = await response.json();
+      pizza.value = data;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // Delete specific document by ID - DELETE
   const deletePizza = async (pizza) => {
     console.log("delete id from vue: ", pizza.id);
     try {
@@ -113,19 +145,20 @@ const getPizzas = () => {
       );
 
       if (!response.ok) {
-        throw new Error("Failed to delete pizza");
+        throw new Error("Failed to delete document");
       }
 
       await GetAllPizzas();
     } catch (error) {
-      console.log("Error deleting pizzas:", error);
+      console.log("Error deleting document:", error);
     }
   };
 
+  // Edit specific document by ID - PUT
   const editPizza = async () => {
     try {
       if (!pizzaID.value) {
-        throw new Error("No pizzas ID provided");
+        throw new Error("No document ID provided");
       }
       if (
         !state.value.newTask ||
@@ -156,31 +189,11 @@ const getPizzas = () => {
       const response = await fetch(url, requestOptions);
 
       if (!response.ok) {
-        throw new Error("Failed to edit pizzas");
+        throw new Error("Failed to edit document");
       }
-
       router.push("/pizzas");
     } catch (error) {
-      console.log("Error editing pizzas:", error);
-    }
-  };
-
-  const pizza = ref({});
-  const GetSpecificPizza = async (pizzaID) => {
-    try {
-      console.log("Fetching pizza with ID:", pizzaID);
-
-      const response = await fetch(
-        `https://men-restful-api-bbe2.onrender.com/api/pizzas/${pizzaID}`
-      );
-
-      if (!response.ok) {
-        throw new Error(`Failed to fetch specific pizza with ID: ${pizzaID}`);
-      }
-      const data = await response.json();
-      pizza.value = data;
-    } catch (error) {
-      console.error(error);
+      console.log("Error editing document:", error);
     }
   };
 
