@@ -45,7 +45,7 @@ const swaggerDefinition = yaml.load("./swagger.yaml");
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDefinition));
 
 // Import routes for pizzas and authentication
-const pizzaRoutes = require("./routes/pizza");
+const pizzaRoutes = require("./routes/task");
 const authRoutes = require("./routes/auth");
 
 // Load environment variables (again, for good measure)
@@ -75,7 +75,7 @@ app.get("/", (req, res) => {
 });
 
 // Define routes for CRUD operations on pizzas
-app.use("/tasks", pizzaRoutes);
+app.use("/pizzas", pizzaRoutes);
 
 // Define routes for user authentication
 app.use("/user", authRoutes);

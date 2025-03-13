@@ -27,7 +27,10 @@ const getDocuments = () => {
           password: "12345678",
         }),
       };
-      await fetch("http://localhost:4000/user/login", requestOptions)
+      await fetch(
+        "https://men-restful-api-bbe2.onrender.com/user/login",
+        requestOptions
+      )
         .then((res) => res.json())
         .then((data) => {
           localStorage.setItem("lsToken", data.data.token);
@@ -42,7 +45,9 @@ const getDocuments = () => {
   // Read all documents - GET
   const getAllDocuments = async () => {
     try {
-      const response = await fetch("http://localhost:4000/tasks/");
+      const response = await fetch(
+        "https://men-restful-api-bbe2.onrender.com/pizzas/"
+      );
       const data = await response.json();
       state.value.pizzas = data.reverse();
     } catch (error) {
@@ -77,7 +82,7 @@ const getDocuments = () => {
       };
 
       const response = await fetch(
-        "http://localhost:4000/pizzas/",
+        "https://men-restful-api-bbe2.onrender.com/pizzas/",
         requestOptions
       );
 
@@ -104,7 +109,9 @@ const getDocuments = () => {
     try {
       console.log("Fetching pizza with ID:", documentID);
 
-      const response = await fetch(`http://localhost:4000/tasks/${documentID}`);
+      const response = await fetch(
+        `https://men-restful-api-bbe2.onrender.com/pizzas/${documentID}`
+      );
 
       if (!response.ok) {
         throw new Error(
@@ -130,7 +137,7 @@ const getDocuments = () => {
         },
       };
       const response = await fetch(
-        `http://localhost:4000/tasks/${pizza.id}`,
+        `https://men-restful-api-bbe2.onrender.com/pizzas/${pizza.id}`,
         requestOptions
       );
 
@@ -174,13 +181,13 @@ const getDocuments = () => {
         }),
       };
 
-      const url = `http://localhost:4000/tasks/${documentID.value}`;
+      const url = `https://men-restful-api-bbe2.onrender.com/pizzas/${documentID.value}`;
       const response = await fetch(url, requestOptions);
 
       if (!response.ok) {
         throw new Error("Failed to edit document");
       }
-      router.push("/tasks");
+      router.push("/pizzas");
     } catch (error) {
       console.log("Error editing document:", error);
     }

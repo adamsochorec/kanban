@@ -105,7 +105,7 @@ router.delete(
       .then((data) => {
         if (!data) {
           res.status(404).send({
-            message: `Cannot update document ${id}, Maybe pizza was not found!`,
+            message: `Cannot update document ${id}, Maybe document was not found!`,
           });
         } else {
           res.send({ message: "Document was successfully deleted." });
