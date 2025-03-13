@@ -5,7 +5,7 @@ import { Form } from "@primevue/forms";
 import { useToast } from "primevue/usetoast";
 import { FormField } from "@primevue/forms";
 
-const { editDocument, state, getSpecificDocument, pizza, documentID } = crud();
+const { editTask, state, getSpecificTask, task, documentID } = crud();
 const toast = useToast();
 const initialValues = ref({
   newName: "",
@@ -17,11 +17,11 @@ const initialValues = ref({
 const isDataLoaded = ref(false);
 
 onMounted(async () => {
-  await getSpecificDocument(documentID.value);
-  state.newName = pizza.value.name;
-  state.newDuration = pizza.value.duration;
-  state.newDescription = pizza.value.description;
-  state.newStatus = pizza.value.status;
+  await getSpecificTask(documentID.value);
+  state.newName = task.value.name;
+  state.newDuration = task.value.duration;
+  state.newDescription = task.value.description;
+  state.newStatus = task.value.status;
   isDataLoaded.value = true;
 });
 
@@ -50,7 +50,7 @@ const resolver = ({ values }) => {
 
 const submitForm = ({ valid }) => {
   if (valid) {
-    editDocument();
+    editTask();
     toast.add({
       severity: "success",
       summary: "Form is submitted.",
@@ -77,7 +77,7 @@ const submitForm = ({ valid }) => {
       <FormField
         v-slot="$field"
         name="newName"
-        :initialValue="pizza.name"
+        :initialValue="task.name"
         class="flex flex-col gap-1"
       >
         <FloatLabel variant="in">
@@ -94,7 +94,7 @@ const submitForm = ({ valid }) => {
       </FormField>
       <FormField
         v-slot="$field"
-        :initialValue="pizza.duration"
+        :initialValue="task.duration"
         name="newDuration"
         class="flex flex-col gap-1"
       >
@@ -118,7 +118,7 @@ const submitForm = ({ valid }) => {
       </FormField>
       <FormField
         v-slot="$field"
-        :initialValue="pizza.description"
+        :initialValue="task.description"
         name="newDescription"
         class="flex flex-col gap-1"
       >
@@ -139,7 +139,7 @@ const submitForm = ({ valid }) => {
         <RadioButtonGroup
           name="newStatus"
           v-model="state.newStatus"
-          :initialValue="pizza.status"
+          :initialValue="task.status"
           :formControl="{ validateOnValueUpdate: true }"
           class="card flex flex-wrap justify-center gap-4"
         >

@@ -5,12 +5,12 @@ import { Form } from "@primevue/forms";
 import { useToast } from "primevue/usetoast";
 import { FormField } from "@primevue/forms";
 
-const { state, getAllDocuments, newDocument } = crud();
+const { state, getAllTasks, newTask } = crud();
 const toast = useToast();
 
 const submitForm = ({ valid }) => {
   if (valid) {
-    newDocument();
+    newTask();
     toast.add({
       severity: "success",
       summary: "Form is submitted.",
@@ -41,7 +41,7 @@ const resolver = ({ values }) => {
 };
 
 onMounted(() => {
-  getAllDocuments();
+  getAllTasks();
 });
 </script>
 

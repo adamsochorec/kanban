@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const taskValidationSchema = z.object({
-  newDocument: z.string().min(1, { message: "Task name is required." }),
+  newTask: z.string().min(1, { message: "Task name is required." }),
   newTodoTime: z
     .number()
     .min(1, { message: "Duration must be at least 1 hour." }),

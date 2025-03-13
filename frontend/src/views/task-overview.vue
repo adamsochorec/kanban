@@ -3,11 +3,11 @@ import { ref, onMounted } from "vue";
 import CreateTask from "@/components/create-task.vue";
 import crud from "@/modules/crud";
 
-const { state, getAllDocuments, deleteDocument, editDocument } = crud();
+const { state, getAllTasks, deleteTask, editTask } = crud();
 const isDataLoaded = ref(false);
 
 onMounted(async () => {
-  await getAllDocuments();
+  await getAllTasks();
   isDataLoaded.value = true;
 });
 </script>
@@ -48,7 +48,7 @@ onMounted(async () => {
           </template>
           <template #footer>
             <div style="display: flex; justify-content: space-between">
-              <Button @click="editDocument(task.id)" asChild v-slot="slotProps">
+              <Button @click="editTask(task.id)" asChild v-slot="slotProps">
                 <RouterLink
                   class="nolink"
                   :to="`/tasks/${task.id}/edit`"
@@ -58,7 +58,7 @@ onMounted(async () => {
               </Button>
               <Button
                 label="Delete"
-                @click="deleteDocument(task)"
+                @click="deleteTask(task)"
                 icon="pi pi-trash"
               ></Button>
             </div>

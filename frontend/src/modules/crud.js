@@ -1,7 +1,7 @@
 import { ref, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
-const getDocuments = () => {
+const getTasks = () => {
   const route = useRoute();
   const router = useRouter();
   const documentID = computed(() => route.params.id);
@@ -43,7 +43,7 @@ const getDocuments = () => {
   };
 
   // Read all documents - GET
-  const getAllDocuments = async () => {
+  const getAllTasks = async () => {
     try {
       const response = await fetch(
         "https://men-restful-api-bbe2.onrender.com/tasks/"
@@ -56,7 +56,7 @@ const getDocuments = () => {
   };
 
   // Create new document - POST
-  const newDocument = async () => {
+  const newTask = async () => {
     if (
       !state.value.newName ||
       !state.value.newDescription ||
@@ -89,9 +89,8 @@ const getDocuments = () => {
       if (!response.ok) {
         throw new Error("Failed to add new document");
       }
-
-      const newPizza = await response.json();
-      state.value.tasks.unshift(newPizza);
+      const newTask = await response.json();
+      state.value.tasks.unshift(newTask);
 
       // Clear the form fields
       state.value.newName = "";
@@ -104,10 +103,10 @@ const getDocuments = () => {
   };
 
   // Read specific document by ID - GET
-  const pizza = ref({});
-  const getSpecificDocument = async (documentID) => {
+  const task = ref({});
+  const getSpecificTask = async (documentID) => {
     try {
-      console.log("Fetching pizza with ID:", documentID);
+      console.log("Fetching document with ID:", documentID);
 
       const response = await fetch(
         `https://men-restful-api-bbe2.onrender.com/tasks/${documentID}`
@@ -119,16 +118,15 @@ const getDocuments = () => {
         );
       }
       const data = await response.json();
-      console.log(data);
-      pizza.value = data;
+      task.value = data;
     } catch (error) {
       console.error(error);
     }
   };
 
   // Delete specific document by ID - DELETE
-  const deleteDocument = async (pizza) => {
-    console.log("Deleting document: ", pizza.id);
+  const deleteTask = async (task) => {
+    console.log("Deleting document: ", task.id);
     try {
       const requestOptions = {
         method: "DELETE",
@@ -138,7 +136,7 @@ const getDocuments = () => {
         },
       };
       const response = await fetch(
-        `https://men-restful-api-bbe2.onrender.com/tasks/${pizza.id}`,
+        `https://men-restful-api-bbe2.onrender.com/tasks/${task.id}`,
         requestOptions
       );
 
@@ -146,14 +144,14 @@ const getDocuments = () => {
         throw new Error("Failed to delete document");
       }
 
-      await getAllDocuments();
+      await getAllTasks();
     } catch (error) {
       console.log("Error deleting document:", error);
     }
   };
 
   // Edit specific document by ID - PUT
-  const editDocument = async () => {
+  const editTask = async () => {
     try {
       if (!documentID.value) {
         throw new Error("No document ID provided");
@@ -195,15 +193,15 @@ const getDocuments = () => {
 
   return {
     state,
-    getAllDocuments,
-    newDocument,
-    deleteDocument,
-    getSpecificDocument,
-    pizza,
+    getAllTasks,
+    newTask,
+    deleteTask,
+    getSpecificTask,
+    task,
     documentID,
-    editDocument,
+    editTask,
     swaggerLogin,
   };
 };
 
-export default getDocuments;
+export default getTasks;
