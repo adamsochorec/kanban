@@ -10,7 +10,7 @@ chai.use(chaiHttp);
 // Describe the group of tests
 describe("Pizza workflow tests", () => {
   // Test for creating a pizza
-  it("should register + login a user, create Pizza and verify 1 in DB", (done) => {
+  it("Register + login a user, create document and verify 1 in DB", (done) => {
     // Define a new user
     let user = {
       name: "Gabor Gabor",
@@ -21,7 +21,7 @@ describe("Pizza workflow tests", () => {
     // Make a POST request to register the new user
     chai
       .request(server)
-      .post("/api/user/register")
+      .post("/user/register")
       .send(user)
       .end((err, res) => {
         // Assert that the response status is 200 and the response body is an object with no errors
@@ -32,7 +32,7 @@ describe("Pizza workflow tests", () => {
         // Make a POST request to login the user
         chai
           .request(server)
-          .post("/api/user/login")
+          .post("/user/login")
           .send({
             email: "mail@gabor.dk",
             password: "123456",
@@ -45,16 +45,16 @@ describe("Pizza workflow tests", () => {
 
             // Define a new pizza
             let Pizza = {
-              task: "Test",
+              name: "Test",
               description: "test, test...",
               status: "Doing",
-              time: 40,
+              duration: 40,
             };
 
             // Make a POST request to create a new pizza
             chai
               .request(server)
-              .post("/api/pizzas")
+              .post("/tasks")
               .set({ "auth-token": token })
               .send(Pizza)
               .end((err, res) => {
@@ -72,7 +72,7 @@ describe("Pizza workflow tests", () => {
                 // Make a GET request to verify the pizza in the database
                 chai
                   .request(server)
-                  .get("/api/pizzas/")
+                  .get("/tasks/")
                   .end((err, res) => {
                     // Assert that the response status is 200, the response body is an array with one element
                     expect(res.status).to.be.equal(200);
@@ -87,7 +87,7 @@ describe("Pizza workflow tests", () => {
   });
 
   // Test for deleting a pizza
-  it("should register + login a user, create Pizza and delete it from DB", (done) => {
+  it("Register + login a user, create document and delete it from DB", (done) => {
     // Define a new user
     let user = {
       name: "Gabor Gabor",
@@ -98,7 +98,7 @@ describe("Pizza workflow tests", () => {
     // Make a POST request to register the new user
     chai
       .request(server)
-      .post("/api/user/register")
+      .post("/user/register")
       .send(user)
       .end((err, res) => {
         // Assert that the response status is 200 and the response body is an object with no errors
@@ -109,7 +109,7 @@ describe("Pizza workflow tests", () => {
         // Make a POST request to login the user
         chai
           .request(server)
-          .post("/api/user/login")
+          .post("/user/login")
           .send({
             email: "mail@gabor.dk",
             password: "123456",
@@ -122,16 +122,16 @@ describe("Pizza workflow tests", () => {
 
             // Define a new pizza
             let Pizza = {
-              task: "Test Test",
+              name: "Test Test",
               description: "test, test...",
               status: "Done",
-              time: 20,
+              duration: 20,
             };
 
             // Make a POST request to create a new pizza
             chai
               .request(server)
-              .post("/api/pizzas")
+              .post("/tasks")
               .set({ "auth-token": token })
               .send(Pizza)
               .end((err, res) => {
@@ -149,14 +149,14 @@ describe("Pizza workflow tests", () => {
                 // Make a DELETE request to delete the pizza
                 chai
                   .request(server)
-                  .delete("/api/pizzas/" + savedPizza._id)
+                  .delete("/tasks/" + savedPizza._id)
                   .set({ "auth-token": token })
                   .end((err, res) => {
                     // Assert that the response status is 200 and the pizza was successfully deleted
                     expect(res.status).to.be.equal(200);
                     const actualVal = res.body.message;
                     expect(actualVal).to.be.equal(
-                      "Pizza was successfully deleted."
+                      "Document was successfully deleted."
                     );
                     done();
                   });
@@ -177,7 +177,7 @@ describe("Pizza workflow tests", () => {
     // Make a POST request to register the new user
     chai
       .request(server)
-      .post("/api/user/register")
+      .post("/user/register")
       .send(user)
       .end((err, res) => {
         // Assert that the response status is 400 and the response body is an object
