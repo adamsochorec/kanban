@@ -13,7 +13,7 @@ const submitForm = ({ valid }) => {
     newTask();
     toast.add({
       severity: "success",
-      summary: "Form is submitted.",
+      summary: "Task was successfully created.",
       life: 3000,
     });
   }

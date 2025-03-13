@@ -53,7 +53,7 @@ const submitForm = ({ valid }) => {
     editTask();
     toast.add({
       severity: "success",
-      summary: "Form is submitted.",
+      summary: "Task was saved.",
       life: 3000,
     });
   }
