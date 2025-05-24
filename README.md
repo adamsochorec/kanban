@@ -6,7 +6,7 @@ Developed by [Adam Sochorec](https://www.linkedin.com/in/adamsochorec) during st
 
 ## Why?
 
-This project was created to demonstrate REST API functionality and DevOps practices, ensuring a dynamic interaction between the user interface and the database. The goal was to implement automated testing and deployment alongside a structured frontend and backend.
+This project was created to demonstrate REST API functionality and DevOps practices, ensuring a dynamic interaction between the user interface and the database. The goal was to implement automated testing and deployment alongside a structured frontend and backend architecture.
 
 ## When?
 
