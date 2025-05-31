@@ -10,13 +10,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "kanban"
+    "url": "https://github.com/adamsochorec/kanban"
   },
   "keywords": [
     "mongodb",
     "mongoose",
     "nodejs",
-    "expressjs"
+    "expressjs",
+    "vitest",
+    "javascript",
+    "swagger",
+    "vite"
   ],
   "author": "AS",
   "license": "ISC",

@@ -9,6 +9,17 @@
     "preview": "vite preview",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/adamsochorec/kanban"
+  },
+  "keywords": [
+    "vue",
+    "nodejs",
+    "javascript",
+    "vite",
+    "primevue"
+  ],
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.5.2",
     "@fortawesome/free-brands-svg-icons": "^6.5.2",
