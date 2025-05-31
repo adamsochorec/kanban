@@ -20,6 +20,7 @@
     "@primevue/themes": "^4.3.1",
     "@tailwindcss/vite": "^4.0.9",
     "chai": "^5.1.0",
+    "esbuild": "^0.25.5",
     "primeicons": "^7.0.0",
     "primevue": "^4.3.1",
     "vue": "^3.4.15",
@@ -28,7 +29,8 @@
   },
   "devDependencies": {
     "@primevue/auto-import-resolver": "^4.3.1",
-    "@vitejs/plugin-vue": "^5.0.3",
+    "@tailwindcss/postcss": "^4.1.8",
+    "@vitejs/plugin-vue": "^5.2.4",
     "autoprefixer": "^10.4.21",
     "eslint": "^8.49.0",
     "eslint-plugin-vue": "^9.17.0",
@@ -36,6 +38,6 @@
     "sass": "^1.75.0",
     "tailwindcss": "^4.1.8",
     "unplugin-vue-components": "^28.4.1",
-    "vite": "^5.0.11"
+    "vite": "^6.3.5"
   }
 }
