@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted } from "vue";
-import CreateTask from "@/components/create-task.vue";
+import CreateTask from "@/components/CreateTask.vue";
 import crud from "@/modules/crud";
 
 const { state, getAllTasks, deleteTask, editTask } = crud();

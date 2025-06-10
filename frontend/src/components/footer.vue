@@ -19,4 +19,3 @@
     </span>
   </div>
 </template>
-<style scoped></style>
