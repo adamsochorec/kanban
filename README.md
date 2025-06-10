@@ -40,9 +40,9 @@ To check out docs, visit [men-restful-api-bbe2.onrender.com/api/docs](https://me
 
 ```sh
 cd frontend
-npm install ## Install Node
-npm run dev ## Compile and Hot-Reload for Development
-npm run build ## Type-Check, Compile and Minify for Production
+npm install # Install Node
+npm run dev # Compile and Hot-Reload for Development
+npm run build # Type-Check, Compile and Minify for Production
 ```
 
 ## Backend Setup
@@ -50,7 +50,7 @@ npm run build ## Type-Check, Compile and Minify for Production
 ```sh
 cd backend
 npm install ## Install Node
-npm run start-dev ## Compile and Hot-Reload for Development and generate API docs
+npm run start-dev # Compile and Hot-Reload for Development and generate API docs
 ```
 ## API testing
 
