@@ -37,5 +37,5 @@ provideAuth();
   >
     <RouterView />
   </main>
-  <Footer></Footer>
+  <Footer />
 </template>
