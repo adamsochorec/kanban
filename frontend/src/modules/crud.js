@@ -28,7 +28,7 @@ const getTasks = () => {
         }),
       };
       await fetch(
-        "https://men-restful-api-bbe2.onrender.com/user/login",
+        "https://kanban-beta-ochre.vercel.app/user/login",
         requestOptions
       )
         .then((res) => res.json())
@@ -46,7 +46,7 @@ const getTasks = () => {
   const getAllTasks = async () => {
     try {
       const response = await fetch(
-        "https://men-restful-api-bbe2.onrender.com/tasks/"
+        "https://kanban-beta-ochre.vercel.app/tasks/"
       );
       const data = await response.json();
       state.value.tasks = data.reverse();
@@ -82,7 +82,7 @@ const getTasks = () => {
       };
 
       const response = await fetch(
-        "https://men-restful-api-bbe2.onrender.com/tasks/",
+        "https://kanban-beta-ochre.vercel.app/tasks/",
         requestOptions
       );
 
@@ -109,7 +109,7 @@ const getTasks = () => {
       console.log("Fetching document with ID:", documentID);
 
       const response = await fetch(
-        `https://men-restful-api-bbe2.onrender.com/tasks/${documentID}`
+        `https://kanban-beta-ochre.vercel.app/tasks/${documentID}`
       );
 
       if (!response.ok) {
@@ -136,7 +136,7 @@ const getTasks = () => {
         },
       };
       const response = await fetch(
-        `https://men-restful-api-bbe2.onrender.com/tasks/${task.id}`,
+        `https://kanban-beta-ochre.vercel.app/tasks/${task.id}`,
         requestOptions
       );
 
@@ -179,7 +179,7 @@ const getTasks = () => {
         }),
       };
 
-      const url = `https://men-restful-api-bbe2.onrender.com/tasks/${documentID.value}`;
+      const url = `https://kanban-beta-ochre.vercel.app/tasks/${documentID.value}`;
       const response = await fetch(url, requestOptions);
 
       if (!response.ok) {

@@ -38,7 +38,7 @@ A simple Kanban board application that allows users to create, organize, and man
 
 ## Documentation
 
-To check out docs, visit [men-restful-api-bbe2.onrender.com/api/docs](https://men-restful-api-bbe2.onrender.com/docs/).
+To check out docs, visit [kanban-beta-ochre.vercel.app/api/docs](https://kanban-beta-ochre.vercel.app/docs/).
 
 ## Frontend Setup
 
