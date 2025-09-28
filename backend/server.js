@@ -15,11 +15,13 @@ require("dotenv-flow").config();
 app.use(function (req, res, next) {
   // Allow requests from any origin
   res.header("Access-Control-Allow-Origin", "*");
+
   // Allow specific headers in requests
   res.header(
     "Access-Control-Allow-Headers",
     "auth-token, Origin, X-Requested-Width, Content-Type, Accept"
   );
+
   // Allow specific HTTP methods
   res.header(
     "Access-Control-Allow-Methods",
