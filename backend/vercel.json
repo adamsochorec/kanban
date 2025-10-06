@@ -1,12 +1,12 @@
 {
   "builds": [
     {
-      "src": "dist/server.js",
+      "src": "server.js",
       "use": "@vercel/node",
       "config": {
         "includeFiles": [
-          "dist/**",
-          "dist/openapi.yaml",
+          "**",
+          "openapi.yaml",
           "node_modules/swagger-ui-dist/**"
         ]
       }
@@ -20,7 +20,7 @@
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "dist/server.js"
+      "dest": "server.js"
     }
   ],
   "env": {
