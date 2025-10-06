@@ -28,7 +28,7 @@ const getTasks = () => {
         }),
       };
       await fetch(
-        "https://kanban-beta-ochre.vercel.app/user/login",
+        "https://kanban-chi-silk.vercel.app/user/login",
         requestOptions
       )
         .then((res) => res.json())
@@ -45,9 +45,7 @@ const getTasks = () => {
   // Read all documents - GET
   const getAllTasks = async () => {
     try {
-      const response = await fetch(
-        "https://kanban-beta-ochre.vercel.app/tasks/"
-      );
+      const response = await fetch("https://kanban-chi-silk.vercel.app/tasks/");
       const data = await response.json();
       state.value.tasks = data.reverse();
     } catch (error) {
@@ -82,7 +80,7 @@ const getTasks = () => {
       };
 
       const response = await fetch(
-        "https://kanban-beta-ochre.vercel.app/tasks/",
+        "https://kanban-chi-silk.vercel.app/tasks/",
         requestOptions
       );
 
@@ -109,7 +107,7 @@ const getTasks = () => {
       console.log("Fetching document with ID:", documentID);
 
       const response = await fetch(
-        `https://kanban-beta-ochre.vercel.app/tasks/${documentID}`
+        `https://kanban-chi-silk.vercel.app/tasks/${documentID}`
       );
 
       if (!response.ok) {
@@ -136,7 +134,7 @@ const getTasks = () => {
         },
       };
       const response = await fetch(
-        `https://kanban-beta-ochre.vercel.app/tasks/${task.id}`,
+        `https://kanban-chi-silk.vercel.app/tasks/${task.id}`,
         requestOptions
       );
 
@@ -179,7 +177,7 @@ const getTasks = () => {
         }),
       };
 
-      const url = `https://kanban-beta-ochre.vercel.app/tasks/${documentID.value}`;
+      const url = `https://kanban-chi-silk.vercel.app/tasks/${documentID.value}`;
       const response = await fetch(url, requestOptions);
 
       if (!response.ok) {

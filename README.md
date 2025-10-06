@@ -38,7 +38,7 @@ A simple Kanban board application that allows users to create, organize, and man
 
 ## Documentation
 
-To check out docs, visit [kanban-beta-ochre.vercel.app/api/docs](https://kanban-beta-ochre.vercel.app/docs/).
+To check out docs, visit [kanban-chi-silk.vercel.app/api/docs](https://kanban-chi-silk.vercel.app/docs/).
 
 ## Frontend Setup
 
